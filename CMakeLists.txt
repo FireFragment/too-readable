@@ -2,6 +2,11 @@ cmake_minimum_required(VERSION 3.0)
 
 project(tooreadable)
 
-add_executable(tooreadable main.cpp)
+file(GLOB SOURCES
+    src/*.h
+    src/*.cpp
+)
+
+add_executable(tooreadable ${SOURCES})
 
 install(TARGETS tooreadable RUNTIME DESTINATION bin)
