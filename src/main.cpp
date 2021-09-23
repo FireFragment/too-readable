@@ -3,6 +3,7 @@
 #include <string>
 #include "ReadFile.h"
 #include "exception.h"
+#include "parse-states/divided.h"
 
 using namespace TooReadable;
 
@@ -20,7 +21,8 @@ int main ( int argc, char** argv )
         inputFile = std::ifstream ( argv[1] );
 
         std::string code =  ReadFile ( inputFile );
-        
+        ParseStates::Divided divided_code(code);
+
     } catch ( Exception err ) {
         std::cout << "ERROR! " << err.what << std::endl;
         std::cout << "Error code: " << std::to_string ( err.GetCode() );

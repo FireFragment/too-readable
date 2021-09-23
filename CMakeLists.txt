@@ -5,6 +5,7 @@ project(tooreadable)
 file(GLOB SOURCES
     src/*.h
     src/*.cpp
+    src/parse-states/*.cpp
 )
 
 add_executable(tooreadable ${SOURCES})
