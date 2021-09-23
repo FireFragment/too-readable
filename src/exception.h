@@ -1,12 +1,12 @@
 #pragma once
 #include <string>
 
-/**
- * @todo write docs
- */
-
 namespace TooReadable {
 
+/** \class Exception exception.h "exception.h"
+ *  Exception class, that is used in the interpreter.
+ */
+    
 class Exception
 {
 public:
