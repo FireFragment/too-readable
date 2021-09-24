@@ -15,7 +15,7 @@ int main ( int argc, char** argv )
 
         // Load file if specified, else throw error.
         if ( argc < 2 ) {
-            throw ( Exception("No input file specified", Exception::bad_arguments) );
+            throw ( Exception("No input file specified!", Exception::bad_arguments) );
             return 1;
         }
 
