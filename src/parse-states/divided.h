@@ -5,7 +5,7 @@
 namespace TooReadable::ParseStates {
 
 /** \class Divided divided.h "parse-states/divided.h"
- *  \brief This class represents TOR program divided to basic parts.
+ *  \brief <b>First stage of parsing:</b> divided to basic parts.
  */
 class Divided
 {
