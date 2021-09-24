@@ -1,7 +1,7 @@
-name: Build
+name: Build & test
 on: [push]
 jobs:
-  Build:
+  Build & test:
     runs-on: ubuntu-latest
     steps:
     - name: Setup cmake
@@ -14,3 +14,5 @@ jobs:
       run: cmake .
     - name: Build
       run: make
+    - name: Run tests
+      run: ./tests
