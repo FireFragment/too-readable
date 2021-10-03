@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "src/parse-states/unparsed.h"
+#include "src/parse-states/divided.h"
 
 /**
  * \test Case, where it continues with string it should
@@ -62,4 +63,20 @@ TEST ( unparsed_continueWith, overhang_almost_true )
 {
     TooReadable::ParseStates::Unparsed test1 = std::string("abcd");
     EXPECT_EQ(test1.ContinueWith("abcdef"), "abcd");   
+}
+
+/**
+ * \test Test of `unparsed.skipTo`.
+ */
+TEST ( unparsed_skipTo, basic )
+{
+    TooReadable::ParseStates::Unparsed test1 = std::string("abcdefghijklmnopqrstuv");
+    EXPECT_EQ(test1.SkipTo("de"), "abc");   
+    EXPECT_EQ(test1.SkipTo("hi"), "fg");   
+    EXPECT_EQ(test1.SkipTo("nopq"), "jklm");  
+    EXPECT_THROW({
+        test1.SkipTo("opq");
+    }, TooReadable::ParseStates::Unparsed::SkipToArgNotFoundException);   
+    
+    EXPECT_EQ(test1.SkipTo("uv"), "rst");  
 }
