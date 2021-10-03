@@ -7,9 +7,9 @@ std::string TooReadable::ParseStates::Unparsed::ContinueWith(std::string continu
     std::string returnVal;
     if (importantPortion != continueWith)
         returnVal = importantPortion;
-
-    // Update `currentPos` for next run
-    currentPosForContinueWith += continueWith.length();
+    else
+        // Update `currentPos` for next run
+        currentPosForContinueWith += continueWith.length();
 
     return returnVal;
 };
