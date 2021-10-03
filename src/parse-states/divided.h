@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "unparsed.h"
 
 namespace TooReadable::ParseStates {
 
@@ -13,7 +14,7 @@ public:
     /**
      * Default constructor
      */
-    Divided(std::string original);
+    Divided(Unparsed original);
 };
 
 }
