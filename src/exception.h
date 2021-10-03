@@ -1,27 +1,38 @@
 #pragma once
 #include <string>
 
-namespace TooReadable {
+namespace TooReadable
+{
 
 /** \class Exception exception.h "exception.h"
  *  Exception class, that is used in the interpreter.
  */
-    
+
 class Exception
 {
 public:
 
-    enum ExceptionType {
-        bad_arguments
-    };
     /**
     * Default constructor
     */
-    Exception(std::string what, ExceptionType type):type(type), what(what) {}
+    Exception() {}
 
-    ExceptionType type;
-    std::string what;
-    unsigned short GetCode();
+    virtual const std::string what()
+    {
+        return "";
+    };
+};
+
+/**
+ * \exception NoInputFileException The input file is missing.
+ */
+class NoInputFileException: public Exception
+{
+public:
+    const std::string what()
+    {
+        return "No input file specified!";
+    };    
 };
 
 }

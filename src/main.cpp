@@ -15,17 +15,16 @@ int main ( int argc, char** argv )
 
         // Load file if specified, else throw error.
         if ( argc < 2 ) {
-            throw ( Exception("No input file specified!", Exception::bad_arguments) );
+            throw ( NoInputFileException() );
             return 1;
         }
 
         inputFile = std::ifstream ( argv[1] );
         ParseStates::Unparsed code = ReadFile ( inputFile ); 
         
-    } catch ( Exception err ) {
-        std::cout << "ERROR! " << err.what << std::endl;
-        std::cout << "Error code: " << std::to_string ( err.GetCode() );
-        return err.GetCode();
+    } catch ( Exception& err ) {
+        std::cout << "ERROR! " << err.what() << std::endl;
+        return 1;
     }
 
     return 0;
