@@ -48,6 +48,18 @@ TEST ( unparsed_continueWith, multiple_cases_and_instances )
 }
 
 /**
+ * \test Make sure it doesn't break on false case.
+ */
+TEST ( unparsed_continueWith, true_case_after_false_case )
+{
+    TooReadable::ParseStates::Unparsed test = std::string("abcdefghijk");
+    EXPECT_EQ(test.ContinueWith("abc"), "");
+    EXPECT_EQ(test.ContinueWith("def"), "");
+    EXPECT_EQ(test.ContinueWith("test"), "ghij");
+    EXPECT_EQ(test.ContinueWith("gh"), "");
+}
+
+/**
  * \test continuesWith argument overhangs the string.
  */
 TEST ( unparsed_continueWith, overhang )
