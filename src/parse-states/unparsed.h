@@ -2,6 +2,7 @@
 #define TOOREADABLE_PARSESTATES_UNPARSED_H
 
 #include <string>
+#include <algorithm>
 #include "../exception.h"
 
 namespace TooReadable::ParseStates
@@ -33,14 +34,20 @@ public:
 
     /**
      * \exception SkipToArgNotFoundException
+     * 
+     * TODO: Add an `insteadOf` member
      */
     class ArgNotFoundException:public Exception {
     public:
-        ArgNotFoundException(std::string whatNotFound):whatNotFound(whatNotFound) {}
+        ArgNotFoundException(
+            const std::string whatNotFound,
+            const unsigned int line)
+            :whatNotFound(whatNotFound), line(line) {}
         std::string whatNotFound;
+        unsigned int line;
         const std::string what()
         {
-            return whatNotFound + " not found in the code!";
+            return whatNotFound + " not found in the code (line " + std::to_string(line) + ")!";
         };
     };
 
