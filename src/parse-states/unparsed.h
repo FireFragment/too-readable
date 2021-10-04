@@ -41,6 +41,7 @@ public:
     public:
         ArgNotFoundException(std::string whatNotFound):whatNotFound(whatNotFound) {}
         std::string whatNotFound;
+        unsigned int line;
         const std::string what()
         {
             return whatNotFound + " not found in the code!";
