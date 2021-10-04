@@ -2,6 +2,7 @@
 #define TOOREADABLE_PARSESTATES_UNPARSED_H
 
 #include <string>
+#include <algorithm>
 #include "../exception.h"
 
 namespace TooReadable::ParseStates
