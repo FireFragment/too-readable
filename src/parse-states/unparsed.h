@@ -39,7 +39,10 @@ public:
      */
     class ArgNotFoundException:public Exception {
     public:
-        ArgNotFoundException(std::string whatNotFound):whatNotFound(whatNotFound) {}
+        ArgNotFoundException(
+            const std::string whatNotFound,
+            const unsigned int line)
+            :whatNotFound(whatNotFound), line(line) {}
         std::string whatNotFound;
         unsigned int line;
         const std::string what()
