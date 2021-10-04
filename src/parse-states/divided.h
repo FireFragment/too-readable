@@ -23,6 +23,30 @@ public:
      * Empty string means, that program is a library hasn't main function;
      */
     std::string mainFunc;
+    
+    /**
+     * \brief Function divided to basic parts.
+     */
+    class Function {
+    public:
+        Function(
+            const std::string name,
+            std::vector<std::string> steps
+            ):name(name), steps(steps) {};
+        Function() {};
+        
+        bool operator== (Function rhs) const {
+            return (rhs.name == name) && (rhs.steps == steps);
+        };
+        
+        std::string name;
+        std::vector<std::string> steps;
+    };
+    
+    /**
+     * \brief Functions of the program.
+     */
+    std::vector<Function> functions;
 };
 
 }
