@@ -21,8 +21,9 @@ public:
     // TODO: Write better docs
     /**
      * \param[in] continueWith String, that the program should continue with
+     * \param[in] doThrow Whether the function should throw an exception when value of the \c continueWith arg wasn't found
      */
-    std::string ContinueWith(std::string continueWith);
+    std::string ContinueWith(const std::string continueWith, const bool doThrow = true);
 
     /**
      * \param[in] skipTo String, to that we should skip.
@@ -33,9 +34,9 @@ public:
     /**
      * \exception SkipToArgNotFoundException
      */
-    class SkipToArgNotFoundException:public Exception {
+    class ArgNotFoundException:public Exception {
     public:
-        SkipToArgNotFoundException(std::string whatNotFound):whatNotFound(whatNotFound) {}
+        ArgNotFoundException(std::string whatNotFound):whatNotFound(whatNotFound) {}
         std::string whatNotFound;
         const std::string what()
         {
