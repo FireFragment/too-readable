@@ -131,5 +131,6 @@ const std::string sampleLib = "How to do stuff\n===============\n\n 1. Do someth
  */
 TEST ( divided, program )
 {
-    TooReadable::ParseStates::Divided(TooReadable::ParseStates::Unparsed(sampleProgram));
+    TooReadable::ParseStates::Divided test1 = TooReadable::ParseStates::Unparsed(sampleProgram);
+    EXPECT_EQ(test1.mainFunc, "do stuff");
 }
