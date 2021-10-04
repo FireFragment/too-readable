@@ -78,6 +78,17 @@ TEST ( unparsed_continueWith, overhang_almost_true )
 }
 
 /**
+ * \test continuesWith Ensure, that the Unparsed throws the exception, if the code does not continue with given string.
+ */
+TEST ( unparsed_continueWith, throw_exception )
+{
+    TooReadable::ParseStates::Unparsed test = std::string("abcdef");
+    EXPECT_THROW({
+        test.ContinueWith("test");
+    }, TooReadable::ParseStates::Unparsed::ArgNotFoundException);   
+}
+
+/**
  * \test Test of `unparsed.skipTo`.
  */
 TEST ( unparsed_skipTo, basic )
