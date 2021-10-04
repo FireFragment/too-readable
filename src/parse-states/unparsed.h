@@ -35,7 +35,6 @@ public:
     /**
      * \exception SkipToArgNotFoundException
      * 
-     * TODO: Add a `line` member
      * TODO: Add an `insteadOf` member
      */
     class ArgNotFoundException:public Exception {
