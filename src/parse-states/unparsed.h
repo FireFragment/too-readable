@@ -47,7 +47,7 @@ public:
         unsigned int line;
         const std::string what()
         {
-            return whatNotFound + " not found in the code!";
+            return whatNotFound + " not found in the code (line " + std::to_string(line) + ")!";
         };
     };
 
