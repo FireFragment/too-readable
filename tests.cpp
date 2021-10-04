@@ -92,3 +92,19 @@ TEST ( unparsed_skipTo, basic )
     
     EXPECT_EQ(test1.SkipTo("uv"), "rst");  
 }
+
+/**
+ * \test Test of `unparsed.skipTo` and `unparsed.continueWith`.
+ */
+TEST ( unparsed, skipTo_continueWith )
+{
+    TooReadable::ParseStates::Unparsed test1 = std::string("abcdefghijklmnopqrstuv");
+    EXPECT_EQ(test1.SkipTo("de"), "abc");   
+    EXPECT_EQ(test1.SkipTo("hi"), "fg");   
+    EXPECT_EQ(test1.ContinueWith("jkl"), "");   
+    EXPECT_THROW({
+        test1.SkipTo("lmn");
+    }, TooReadable::ParseStates::Unparsed::SkipToArgNotFoundException);   
+    
+    EXPECT_EQ(test1.SkipTo("uv"), "mnopqrst");  
+}
