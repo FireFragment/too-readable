@@ -10,7 +10,7 @@ std::string TooReadable::ParseStates::Unparsed::ContinueWith(const std::string c
             std::count(TheCode.begin(), TheCode.begin() + currentPosForContinueWith, '\n');
             throw ArgNotFoundException(
                 continueWith,
-                std::count(TheCode.begin(), TheCode.begin() + currentPosForContinueWith, '\n') // Get the line number
+                std::count(TheCode.begin(), TheCode.begin() + currentPosForContinueWith, '\n') + 1 // Get the line number
             );
         }
         else
@@ -28,7 +28,7 @@ std::string TooReadable::ParseStates::Unparsed::SkipTo(std::string skipTo) {
     if (occurencePos == std::string::npos) // `skipTo` not found in `TheCode`
         throw ArgNotFoundException(
             skipTo,
-            std::count(TheCode.begin(), TheCode.begin() + currentPosForContinueWith, '\n')
+            std::count(TheCode.begin(), TheCode.begin() + currentPosForContinueWith, '\n') + 1 // Get the line number
         );
     
     // Compute return value.
