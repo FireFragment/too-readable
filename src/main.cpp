@@ -20,7 +20,8 @@ int main ( int argc, char** argv )
         }
 
         inputFile = std::ifstream ( argv[1] );
-        ParseStates::Unparsed code = ReadFile ( inputFile ); 
+        ParseStates::Unparsed code = ReadFile ( inputFile );
+        ParseStates::Divided dividedCode = code;
         
     } catch ( Exception& err ) {
         std::cout << "ERROR! " << err.what() << std::endl;
