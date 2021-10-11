@@ -121,10 +121,13 @@ TEST ( unparsed, skipTo_continueWith )
 }
 
 // Sample TOR program used across the tests
-const std::string sampleProgram = "Please do stuff.\n\nHow to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n \nHow to do another stuff\n=======================\n\n 1. Do something.\n 2. Do something another.";
+const std::string sampleProgram = "Please do stuff.\n\nHow to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n\nHow to do another stuff\n=======================\n\n 1. Do something.\n 2. Do something different.\n";
+
+// Sample TOR program consisting of the one function used across the tests
+const std::string singleFunction = "Please do stuff.\n\nHow to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n";
 
 // Sample TOR library used across the tests
-const std::string sampleLib = "How to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n \nHow to do another stuff\n=======================\n\n 1. Do something.\n 2. Do something another.";
+const std::string sampleLib = "How to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n\nHow to do another stuff\n=======================\n\n 1. Do something.\n 2. Do something different.\n";
 
 /**
  * \test divided Test creating \c TooReadable::ParseStates::Divided class from \c sampleProgram.
@@ -133,4 +136,52 @@ TEST ( divided, program )
 {
     TooReadable::ParseStates::Divided test1 = TooReadable::ParseStates::Unparsed(sampleProgram);
     EXPECT_EQ(test1.mainFunc, "do stuff");
+    EXPECT_EQ(test1.functions, 
+        std::vector<TooReadable::ParseStates::Divided::Function>(
+            {
+                TooReadable::ParseStates::Divided::Function("do stuff", std::vector<std::string>({
+                    "Do something", "Do something another"
+                })),
+                TooReadable::ParseStates::Divided::Function("do another stuff", std::vector<std::string>({
+                    "Do something", "Do something different"
+                }))
+            }
+    ));
+}
+
+/**
+ * \test divided Test creating \c TooReadable::ParseStates::Divided class from \c sampleLib.
+ */
+TEST ( divided, library )
+{
+    TooReadable::ParseStates::Divided test1 = TooReadable::ParseStates::Unparsed(sampleLib);
+    EXPECT_EQ(test1.mainFunc, "");
+    EXPECT_EQ(test1.functions, 
+        std::vector<TooReadable::ParseStates::Divided::Function>(
+            {
+                TooReadable::ParseStates::Divided::Function("do stuff", std::vector<std::string>({
+                    "Do something", "Do something another"
+                })),
+                TooReadable::ParseStates::Divided::Function("do another stuff", std::vector<std::string>({
+                    "Do something", "Do something different"
+                }))
+            }
+    ));
+}
+
+/**
+ * \test divided Test creating \c TooReadable::ParseStates::Divided class from \c singleFuncProgram.
+ */
+TEST ( divided, singleFuncProgram )
+{
+    TooReadable::ParseStates::Divided test1 = TooReadable::ParseStates::Unparsed(singleFunction);
+    EXPECT_EQ(test1.mainFunc, "do stuff");
+    EXPECT_EQ(test1.functions, 
+        std::vector<TooReadable::ParseStates::Divided::Function>(
+            {
+                TooReadable::ParseStates::Divided::Function("do stuff", std::vector<std::string>({
+                    "Do something", "Do something another"
+                }))
+            }
+    ));
 }
