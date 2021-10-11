@@ -7,7 +7,7 @@
 namespace TooReadable::ParseStates {
 
 /** \class Divided divided.h "parse-states/divided.h"
- *  \brief <b>First stage of parsing:</b> divided to basic parts.
+ *  \brief **First stage of parsing:** divided to basic parts.
  */
 class Divided
 {
