@@ -121,13 +121,13 @@ TEST ( unparsed, skipTo_continueWith )
 }
 
 // Sample TOR program used across the tests
-const std::string sampleProgram = "Please do stuff.\n\nHow to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n \nHow to do another stuff\n=======================\n\n 1. Do something.\n 2. Do something different.";
+const std::string sampleProgram = "Please do stuff.\n\nHow to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n\nHow to do another stuff\n=======================\n\n 1. Do something.\n 2. Do something different.";
 
 // Sample TOR program consisting of the one function used across the tests
 const std::string singleFunction = "Please do stuff.\n\nHow to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.";
 
 // Sample TOR library used across the tests
-const std::string sampleLib = "How to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n \nHow to do another stuff\n=======================\n\n 1. Do something.\n 2. Do something different.";
+const std::string sampleLib = "How to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n\nHow to do another stuff\n=======================\n\n 1. Do something.\n 2. Do something different.";
 
 /**
  * \test divided Test creating \c TooReadable::ParseStates::Divided class from \c sampleProgram.
