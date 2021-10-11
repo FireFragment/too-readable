@@ -3,13 +3,14 @@
 TooReadable::ParseStates::Divided::Divided(Unparsed original)
 {
     // If it isn't a library, the "please" definition of the main function.
-    if (original.ContinueWith("Please ", false) == "")
-        mainFunc = original.SkipTo(".\n");
+    try {
+        original.ContinueWith("Please ") == ""; 
+        mainFunc = original.SkipTo(".\n\n");
+    } catch (Unparsed::ArgNotFoundException err) {}
     
     // Functions
     try {
         while (true) {
-            original.ContinueWith("\n");
             
             // Function header
             original.ContinueWith("How to ");
@@ -33,6 +34,9 @@ TooReadable::ParseStates::Divided::Divided(Unparsed original)
             } catch (Unparsed::ArgNotFoundException err) {}
             
             functions.push_back(func);
+            
+            
+            original.ContinueWith("\n");
         }
     } catch (Unparsed::ArgNotFoundException err) {}
     
