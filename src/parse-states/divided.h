@@ -16,6 +16,11 @@ public:
     /**
      * Default constructor
      */
+    Divided() {}
+    /**
+     * \brief Divides \c original to this class.
+     * \param[in] original The program to parse.
+     */
     Divided(Unparsed original);
     
     /**
@@ -32,5 +37,3 @@ public:
 };
 
 }
-
-#pragma once
