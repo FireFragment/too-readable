@@ -30,8 +30,11 @@ enable_testing()
 
 file(GLOB TEST_SOURCES
     src/parse-states/*.cpp
+    src/*.cpp
     tests.cpp
 )
+
+list(FILTER TEST_SOURCES EXCLUDE REGEX ".*main\\.cpp$")
 
 add_executable(
   tests
