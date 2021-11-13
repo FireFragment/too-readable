@@ -39,3 +39,10 @@ std::string TooReadable::ParseStates::Unparsed::SkipTo(std::string skipTo) {
     
     return out;
 }
+
+void TooReadable::ParseStates::Unparsed::ExpectEnd() {
+    if (currentPosForContinueWith != TheCode.length())
+        throw ExpectedEndException(
+            std::count(TheCode.begin(), TheCode.begin() + currentPosForContinueWith, '\n') + 1 // Get the line number TODO: Make standalone function
+        );
+}
