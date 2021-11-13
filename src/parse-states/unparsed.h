@@ -31,6 +31,11 @@ public:
      * \returns String, we just skipped.
      */
     std::string SkipTo(std::string skipTo);
+    
+    /**
+     * \brief Expect the program to end.
+     */
+    void ExpectEnd();
 
     /**
      * \exception SkipToArgNotFoundException
@@ -48,6 +53,21 @@ public:
         const std::string what()
         {
             return "'" + whatNotFound + "' not found in the code (line " + std::to_string(line) + ")!";
+        };
+    };
+    
+    /**
+     * \exception ExpectedEndException
+     * 
+     * TODO: Add an `insteadOf` member
+     */
+    class ExpectedEndException:public Exception {
+    public:
+        ExpectedEndException(const unsigned int line):line(line) {}
+        unsigned int line;
+        const std::string what()
+        {
+            return "Expected the end of the code (line " + std::to_string(line) + ")!";
         };
     };
 

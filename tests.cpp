@@ -1,6 +1,9 @@
+#include <filesystem>
+#include <fstream>
 #include <gtest/gtest.h>
 #include "src/parse-states/unparsed.h"
 #include "src/parse-states/divided.h"
+#include "src/ReadFile.h"
 
 /**
  * \test Case, where it continues with string it should
@@ -120,11 +123,28 @@ TEST ( unparsed, skipTo_continueWith )
     EXPECT_EQ(test1.SkipTo("uv"), "mnopqrst");  
 }
 
+/**
+ * \test Test of `expectEnd`, shouldn't throw anything.
+ */
+TEST ( unparsed_expectEnd, success) 
+{
+    TooReadable::ParseStates::Unparsed test1 = std::string("abcd");
+    test1.SkipTo("cd");
+    test1.ExpectEnd();
+}
+
+/**
+ * \test Test of `expectEnd`, should throw.
+ */
+TEST ( unparsed_expectEnd, failture ) 
+{
+    TooReadable::ParseStates::Unparsed test1 = std::string("abcde");
+    test1.SkipTo("cd");
+    EXPECT_THROW(test1.ExpectEnd(), TooReadable::ParseStates::Unparsed::ExpectedEndException);
+}
+
 // Sample TOR program used across the tests
 const std::string sampleProgram = "Please do stuff.\n\nHow to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n\nHow to do another stuff\n=======================\n\n 1. Do something.\n 2. Do something different.\n";
-
-// Sample TOR program consisting of the one function used across the tests
-const std::string singleFunction = "Please do stuff.\n\nHow to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n";
 
 // Sample TOR library used across the tests
 const std::string sampleLib = "How to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n\nHow to do another stuff\n=======================\n\n 1. Do something.\n 2. Do something different.\n";
@@ -137,15 +157,14 @@ TEST ( divided, program )
     TooReadable::ParseStates::Divided test1 = TooReadable::ParseStates::Unparsed(sampleProgram);
     EXPECT_EQ(test1.mainFunc, "do stuff");
     EXPECT_EQ(test1.functions, 
-        std::vector<TooReadable::Function>(
-            {
-                TooReadable::Function("do stuff", std::vector<std::string>({
-                    "Do something", "Do something another"
-                })),
-                TooReadable::Function("do another stuff", std::vector<std::string>({
-                    "Do something", "Do something different"
-                }))
-            }
+        std::vector<TooReadable::Function> ({
+            TooReadable::Function("do stuff", std::vector<std::string>({
+                "Do something", "Do something another"
+            })),
+            TooReadable::Function("do another stuff", std::vector<std::string>({
+                "Do something", "Do something different"
+            }))
+        }
     ));
 }
 
@@ -156,32 +175,39 @@ TEST ( divided, library )
 {
     TooReadable::ParseStates::Divided test1 = TooReadable::ParseStates::Unparsed(sampleLib);
     EXPECT_EQ(test1.mainFunc, "");
-    EXPECT_EQ(test1.functions, 
-        std::vector<TooReadable::Function>(
-            {
-                TooReadable::Function("do stuff", std::vector<std::string>({
-                    "Do something", "Do something another"
-                })),
-                TooReadable::Function("do another stuff", std::vector<std::string>({
-                    "Do something", "Do something different"
-                }))
-            }
+    EXPECT_EQ(test1.functions,
+        std::vector<TooReadable::Function>({
+            TooReadable::Function("do stuff", std::vector<std::string>({
+                "Do something", "Do something another"
+            })),
+            TooReadable::Function("do another stuff", std::vector<std::string>({
+                "Do something", "Do something different"
+            }))
+        }
     ));
 }
 
 /**
- * \test divided Test creating \c TooReadable::ParseStates::Divided class from \c singleFuncProgram.
+ * \test overall Testing, that parsing programs, that shouldn't be parsed (eg. syntax errors) throws an error.
  */
-TEST ( divided, singleFuncProgram )
-{
-    TooReadable::ParseStates::Divided test1 = TooReadable::ParseStates::Unparsed(singleFunction);
-    EXPECT_EQ(test1.mainFunc, "do stuff");
-    EXPECT_EQ(test1.functions, 
-        std::vector<TooReadable::Function>(
-            {
-                TooReadable::Function("do stuff", std::vector<std::string>({
-                    "Do something", "Do something another"
-                }))
-            }
-    ));
+TEST ( overall, failtures ) {
+    std::string pathToFailing = "../sample_code/parsing_fails"; // Directory with invalid code sample. 
+
+    std::cout << std::endl << "Starting..." << std::endl;
+    for (const auto & entry : std::filesystem::directory_iterator(pathToFailing)) { // For each file in `sample_code/parsing_fails`
+        
+        std::cout << std::endl << "----- TESTING: " <<  entry.path() << " -----" << std::endl;
+        std::ifstream inputFile = std::ifstream ( entry.path() ); // Read the file with invalid code.
+        
+        /*TooReadable::ParseStates::Unparsed code = ReadFile ( inputFile );
+        TooReadable::ParseStates::Divided dividedCode = code;*/
+        
+        EXPECT_ANY_THROW({ // The programs should not be parsed.
+            // Parse the code
+            TooReadable::ParseStates::Unparsed code = ReadFile ( inputFile );
+            TooReadable::ParseStates::Divided dividedCode = code;
+        });
+
+    }
 }
+
