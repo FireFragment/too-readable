@@ -120,6 +120,26 @@ TEST ( unparsed, skipTo_continueWith )
     EXPECT_EQ(test1.SkipTo("uv"), "mnopqrst");  
 }
 
+/**
+ * \test Test of `expectEnd`, shouldn't throw anything.
+ */
+TEST ( unparsed_expectEnd, success) 
+{
+    TooReadable::ParseStates::Unparsed test1 = std::string("abcd");
+    test1.SkipTo("cd");
+    test1.ExpectEnd();
+}
+
+/**
+ * \test Test of `expectEnd`, should throw.
+ */
+TEST ( unparsed_expectEnd, failture ) 
+{
+    TooReadable::ParseStates::Unparsed test1 = std::string("abcde");
+    test1.SkipTo("cd");
+    EXPECT_THROW(test1.ExpectEnd(), TooReadable::ParseStates::Unparsed::ExpectedEndException);
+}
+
 // Sample TOR program used across the tests
 const std::string sampleProgram = "Please do stuff.\n\nHow to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n\nHow to do another stuff\n=======================\n\n 1. Do something.\n 2. Do something different.\n";
 
