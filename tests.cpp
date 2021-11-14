@@ -197,9 +197,6 @@ TEST ( overall, failtures ) {
         std::cout << "TESTING: " <<  entry.path() << std::endl;
         std::ifstream inputFile = std::ifstream ( entry.path() ); // Read the file with invalid code.
         
-        /*TooReadable::ParseStates::Unparsed code = ReadFile ( inputFile );
-        TooReadable::ParseStates::Divided dividedCode = code;*/
-        
         EXPECT_ANY_THROW({ // The programs should not be parsed.
             // Parse the code
             TooReadable::ParseStates::Unparsed code = ReadFile ( inputFile );
