@@ -3,9 +3,6 @@ on: [push]
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./build
     steps:
     - name: Setup cmake
       uses: jwlawson/actions-setup-cmake@v1.9
@@ -14,9 +11,13 @@ jobs:
     - name: Check out the code
       uses: actions/checkout@v2
     - run: tree ..
+      working-directory: ./build
     - name: Init CMake
-      run: cmake .
+      run: cmake ..
+      working-directory: ./build
     - name: Build
       run: make
+      working-directory: ./build
     - name: Run tests
       run: ./tests
+      working-directory: ./build
