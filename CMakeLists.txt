@@ -40,6 +40,11 @@ add_executable(
   tests
   ${TEST_SOURCES}
 )
+
+add_custom_command(TARGET tests PRE_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_SOURCE_DIR}/sample_code/ $<TARGET_FILE_DIR:tests>/test_code/)
+                
 target_link_libraries(
   tests
   gtest_main
