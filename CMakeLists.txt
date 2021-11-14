@@ -41,6 +41,7 @@ add_executable(
   ${TEST_SOURCES}
 )
 
+# Copy testing code for tests
 add_custom_command(TARGET tests PRE_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_SOURCE_DIR}/sample_code/ $<TARGET_FILE_DIR:tests>/test_code/)
