@@ -192,7 +192,7 @@ TEST ( divided, library )
  */
 TEST ( overall, failtures ) {
     std::string pathToFailing = "./test_code/parsing_fails"; // Directory with invalid code sample. 
-    for (const auto & entry : std::filesystem::directory_iterator(pathToFailing)) { // For each file in `sample_code/parsing_fails`
+    for (const auto & entry : std::filesystem::directory_iterator(pathToFailing)) { // For each file in `test_code/parsing_fails`
         
         std::cout << "TESTING: " <<  entry.path() << std::endl;
         std::ifstream inputFile = std::ifstream ( entry.path() ); // Read the file with invalid code.
