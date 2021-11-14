@@ -10,8 +10,6 @@ jobs:
         cmake-version: '3.16.x'
     - name: Check out the code
       uses: actions/checkout@v2
-    - run: tree ..
-      working-directory: ./build
     - name: Init CMake
       run: cmake ..
       working-directory: ./build
