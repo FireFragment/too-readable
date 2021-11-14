@@ -191,7 +191,7 @@ TEST ( divided, library )
  * \test overall Testing, that parsing programs, that shouldn't be parsed (eg. syntax errors) throws an error.
  */
 TEST ( overall, failtures ) {
-    std::string pathToFailing = "../sample_code/parsing_fails"; // Directory with invalid code sample. 
+    std::string pathToFailing = "./sample_code/parsing_fails"; // Directory with invalid code sample. 
 
     std::cout << std::endl << "Starting..." << std::endl;
     for (const auto & entry : std::filesystem::directory_iterator(pathToFailing)) { // For each file in `sample_code/parsing_fails`
