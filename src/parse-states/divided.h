@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 #include "unparsed.h"
-#include "../function.h"
 
 namespace TooReadable::ParseStates {
 
@@ -13,6 +12,31 @@ namespace TooReadable::ParseStates {
 class Divided
 {
 public:
+    /**
+     * \brief Function of TOR program.
+     */
+    class Function {
+    public:
+        Function(
+            const std::string name,
+            std::vector<std::string> steps
+        ):name(name), steps(steps) {};
+        Function() {};
+
+        bool operator== (Function rhs) const {
+            return (rhs.name == name) && (rhs.steps == steps);
+        };
+
+        /**
+         * \brief Name of the function.
+         */
+        std::string name;
+        /**
+         * \brief Steps of the function.
+         */
+        std::vector<std::string> steps;
+    };
+    
     /**
      * Default constructor
      */
