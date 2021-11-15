@@ -7,11 +7,28 @@
 namespace TooReadable::ParseStates {
 
 /**
- * @todo write docs
+ * \brief Fully parsed TOR program, ready to run.
  */
 class Parsed
 {
 public:
+    
+    class Function; // Forward declaration
+    
+    /**
+     * \brief \c Function call
+     */
+    class Step {
+        Function* toCall;
+    };
+    
+    /**
+     * \brief Function of TOR program
+     */
+    class Function {
+        std::string name;
+        std::vector<Step> body;
+    };
     
     /**
      * \brief Parses \c original.
