@@ -1,6 +1,9 @@
 #ifndef TOOREADABLE_PARSESTATES_PARSED_H
 #define TOOREADABLE_PARSESTATES_PARSED_H
 
+#include <vector>
+#include "divided.h"
+
 namespace TooReadable::ParseStates {
 
 /**
@@ -9,11 +12,12 @@ namespace TooReadable::ParseStates {
 class Parsed
 {
 public:
+    
     /**
-     * Default constructor
+     * \brief Parses \c original.
+     * \param[in] original Program to parse
      */
-    Parsed();
-
+    Parsed(Divided original);
 };
 
 }
