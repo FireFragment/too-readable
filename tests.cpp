@@ -155,13 +155,13 @@ const std::string sampleLib = "How to do stuff\n===============\n\n 1. Do someth
 TEST ( divided, program )
 {
     TooReadable::ParseStates::Divided test1 = TooReadable::ParseStates::Unparsed(sampleProgram);
-    EXPECT_EQ(test1.mainFunc, "do stuff");
+    EXPECT_EQ(test1.mainFunc, "Do stuff");
     EXPECT_EQ(test1.functions, 
         std::vector<TooReadable::ParseStates::Divided::Function> ({
-            TooReadable::ParseStates::Divided::Function("do stuff", std::vector<std::string>({
+            TooReadable::ParseStates::Divided::Function("Do stuff", std::vector<std::string>({
                 "Do something", "Do something another"
             })),
-            TooReadable::ParseStates::Divided::Function("do another stuff", std::vector<std::string>({
+            TooReadable::ParseStates::Divided::Function("Do another stuff", std::vector<std::string>({
                 "Do something", "Do something different"
             }))
         }
@@ -177,10 +177,10 @@ TEST ( divided, library )
     EXPECT_EQ(test1.mainFunc, "");
     EXPECT_EQ(test1.functions,
         std::vector<TooReadable::ParseStates::Divided::Function>({
-            TooReadable::ParseStates::Divided::Function("do stuff", std::vector<std::string>({
+            TooReadable::ParseStates::Divided::Function("Do stuff", std::vector<std::string>({
                 "Do something", "Do something another"
             })),
-            TooReadable::ParseStates::Divided::Function("do another stuff", std::vector<std::string>({
+            TooReadable::ParseStates::Divided::Function("Do another stuff", std::vector<std::string>({
                 "Do something", "Do something different"
             }))
         }

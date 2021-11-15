@@ -6,6 +6,7 @@ TooReadable::ParseStates::Divided::Divided(Unparsed original)
     try {
         original.ContinueWith("Please ") == ""; 
         mainFunc = original.SkipTo(".\n\n");
+        mainFunc[0] = toupper(mainFunc[0]); 
     } catch (Unparsed::ArgNotFoundException err) {}
     
     // Functions
@@ -16,6 +17,7 @@ TooReadable::ParseStates::Divided::Divided(Unparsed original)
         
         Function func;
         func.name = original.SkipTo("\n");
+        func.name[0] = toupper(func.name[0]); // Capitalize the first letter of the function name.
         
         // Underline of the header
         // TODO: Replace `7` with something more clear (it's length of "How to ")
