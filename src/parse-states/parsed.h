@@ -13,19 +13,22 @@ class Parsed
 {
 public:
     
-    class Function; // Forward declaration
+    struct Function; // Forward declaration
     
     /**
      * \brief \c Function call
      */
-    class Step {
+    struct Step {
+        Step(Function* toCall):toCall(toCall) {};
         Function* toCall;
     };
     
     /**
      * \brief Function of TOR program
      */
-    class Function {
+    struct Function {
+        Function(); // Default constructor
+        Function(std::string name):name(name) {};
         std::string name;
         std::vector<Step> body;
     };
