@@ -39,10 +39,10 @@ namespace BuiltinFuncs
     /**
      * \brief List of all TooReadable builtin functions
      */
-    const std::vector<BuiltinFunction> list = {
-        BuiltinFunction("Greet the world",        &HelloWorld), // Prints `Hello world` to the standart output.
-        BuiltinFunction("Greet the user",         &Greet),      // Prints `Hello my friend` to the standart output.
-        BuiltinFunction("Propagate TooReadable",  &Advert)      // Prints `TooReadable is the best!` to the standart output.
+    const std::vector<BuiltinFunction*> list = {
+        new BuiltinFunction("Greet the world",        &HelloWorld), // Prints `Hello world` to the standart output.
+        new BuiltinFunction("Greet the user",         &Greet),      // Prints `Hello my friend` to the standart output.
+        new BuiltinFunction("Propagate TooReadable",  &Advert)      // Prints `TooReadable is the best!` to the standart output.
     };
     
 }

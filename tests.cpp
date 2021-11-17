@@ -198,6 +198,6 @@ TEST ( overall, failtures ) {
  * \test builtin_funcs Ensure, that all builtin functions doesn't throw anything.
  */
 TEST ( builtin_funcs, not_crashing ) {
-    for (TooReadable::BuiltinFunction func : TooReadable::BuiltinFuncs::list)
-        func.run();
+    for (TooReadable::BuiltinFunction* func : TooReadable::BuiltinFuncs::list)
+        func->run();
 }
