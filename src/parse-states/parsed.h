@@ -34,6 +34,11 @@ public:
     };
     
     /**
+     * \brief Main function - function ran when program starts
+     */
+    Function mainFunc = Function();
+    
+    /**
      * \brief Parses \c original.
      * \param[in] original Program to parse
      */
