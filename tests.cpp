@@ -3,7 +3,9 @@
 #include <gtest/gtest.h>
 #include "src/parse-states/unparsed.h"
 #include "src/parse-states/divided.h"
+#include "src/parse-states/parsed.h"
 #include "src/ReadFile.h"
+#include "src/builtinfunction.h"
 
 /**
  * \test Case, where it continues with string it should
@@ -144,7 +146,7 @@ TEST ( unparsed_expectEnd, failture )
 }
 
 // Sample TOR program used across the tests
-const std::string sampleProgram = "Please do stuff.\n\nHow to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n\nHow to do another stuff\n=======================\n\n 1. Do something.\n 2. Do something different.\n";
+const std::string sampleProgram = "Please run the sample program.\n\nHow to run the sample program\n=============================\n\n 1. Greet everything and everyone.\n 2. Propagate TooReadable.\n\nHow to greet everything and everyone\n====================================\n\n 1. Greet the world.\n 2. Greet the user.\n";
 
 // Sample TOR library used across the tests
 const std::string sampleLib = "How to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n\nHow to do another stuff\n=======================\n\n 1. Do something.\n 2. Do something different.\n";
@@ -154,34 +156,20 @@ const std::string sampleLib = "How to do stuff\n===============\n\n 1. Do someth
  */
 TEST ( divided, program )
 {
-    TooReadable::ParseStates::Divided test1 = TooReadable::ParseStates::Unparsed(sampleProgram);
-    EXPECT_EQ(test1.mainFunc, "Do stuff");
+    TooReadable::ParseStates::Divided test1;
+    try {
+        test1 = TooReadable::ParseStates::Unparsed(sampleProgram);
+    } catch (TooReadable::ParseStates::Unparsed::ArgNotFoundException err) {
+        std::cout << err.what();
+    }
+    EXPECT_EQ(test1.mainFunc, "Run the sample program");
     EXPECT_EQ(test1.functions, 
         std::vector<TooReadable::ParseStates::Divided::Function> ({
-            TooReadable::ParseStates::Divided::Function("Do stuff", std::vector<std::string>({
-                "Do something", "Do something another"
+            TooReadable::ParseStates::Divided::Function("Run the sample program", std::vector<std::string>({
+                "Greet everything and everyone", "Propagate TooReadable"
             })),
-            TooReadable::ParseStates::Divided::Function("Do another stuff", std::vector<std::string>({
-                "Do something", "Do something different"
-            }))
-        }
-    ));
-}
-
-/**
- * \test divided Test creating \c TooReadable::ParseStates::Divided class from \c sampleLib.
- */
-TEST ( divided, library )
-{
-    TooReadable::ParseStates::Divided test1 = TooReadable::ParseStates::Unparsed(sampleLib);
-    EXPECT_EQ(test1.mainFunc, "");
-    EXPECT_EQ(test1.functions,
-        std::vector<TooReadable::ParseStates::Divided::Function>({
-            TooReadable::ParseStates::Divided::Function("Do stuff", std::vector<std::string>({
-                "Do something", "Do something another"
-            })),
-            TooReadable::ParseStates::Divided::Function("Do another stuff", std::vector<std::string>({
-                "Do something", "Do something different"
+            TooReadable::ParseStates::Divided::Function("Greet everything and everyone", std::vector<std::string>({
+                "Greet the world", "Greet the user"
             }))
         }
     ));
