@@ -40,3 +40,15 @@ TooReadable::ParseStates::Parsed::Parsed(Divided original)
         thisFunc++;
     }
 }
+
+void TooReadable::ParseStates::Parsed::Step::run() 
+{
+    toCall->run();
+}
+
+void TooReadable::ParseStates::Parsed::Function::run() 
+{
+    for (Step step : body) {
+        step.run();
+    }
+}

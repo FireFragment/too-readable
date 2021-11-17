@@ -21,6 +21,11 @@ public:
     struct Step {
         Step(Function* toCall):toCall(toCall) {};
         Function* toCall;
+        
+        /**
+         * \brief Execute the step
+         */
+        void run();
     };
     
     /**
@@ -39,6 +44,11 @@ public:
          * \brief The body of the function
          */
         std::vector<Step> body;
+        
+        /**
+         * \brief Execute the function
+         */
+        void run();
     };
     
     /**
