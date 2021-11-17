@@ -36,7 +36,7 @@ public:
     /**
      * \brief Main function - function ran when program starts
      */
-    Function mainFunc = Function();
+    Function* mainFunc;
     
     /**
      * \brief Parses \c original.
