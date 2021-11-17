@@ -29,7 +29,15 @@ public:
     struct Function {
         Function() {}; // Default constructor
         Function(std::string name):name(name) {};
+        
+        /**
+         * \brief The name of the function
+         */
         std::string name;
+        
+        /**
+         * \brief The body of the function
+         */
         std::vector<Step> body;
     };
     
