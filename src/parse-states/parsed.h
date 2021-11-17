@@ -39,10 +39,35 @@ public:
     Function* mainFunc;
     
     /**
+     * Functions of the program
+     */
+    std::vector<Function> funcs;
+    
+    /**
      * \brief Parses \c original.
      * \param[in] original Program to parse
      */
     Parsed(Divided original);
+    
+    /**
+     * \exception FuncNotDefined Call of non-existing function.
+     * 
+     * TODO: Add more members to help user find the issue.
+     */
+    class FuncNotDefined : public Exception {
+    public:
+        FuncNotDefined() {};
+        FuncNotDefined(std::string FuncName) : FuncName(FuncName) {};
+        
+        const std::string what() {
+            return "You didn't say me, how to " + FuncName + ", so I can't do it!";
+        };
+        
+        /**
+         * \brief The missing function user tried to call.
+         */
+        std::string FuncName;
+    };
 };
 
 }
