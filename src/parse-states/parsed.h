@@ -27,7 +27,7 @@ public:
      * \brief Function of TOR program
      */
     struct Function {
-        Function(); // Default constructor
+        Function() {}; // Default constructor
         Function(std::string name):name(name) {};
         std::string name;
         std::vector<Step> body;
