@@ -176,6 +176,25 @@ TEST ( divided, program )
 }
 
 /**
+ * \test parsed_constructor Test parsing \c sampleProgram.
+ */
+TEST ( parsed_constructor, program )
+{
+    TooReadable::ParseStates::Parsed test1 = TooReadable::ParseStates::Divided(TooReadable::ParseStates::Unparsed(sampleProgram));
+    EXPECT_EQ(test1.mainFunc, test1.funcs[0]); // The main function is correct
+    
+    // Check names of functions
+    EXPECT_EQ(test1.funcs[0]->name, "Run the sample program");
+    EXPECT_EQ(test1.funcs[1]->name, "Greet everything and everyone");
+    
+    // Check bodies of functions
+    EXPECT_EQ(test1.funcs[0]->body[0].toCall, test1.funcs[1]);
+    EXPECT_EQ(test1.funcs[0]->body[1].toCall->name, "Propagate TooReadable");
+    EXPECT_EQ(test1.funcs[1]->body[0].toCall->name, "Greet the world");
+    EXPECT_EQ(test1.funcs[1]->body[1].toCall->name, "Greet the user");
+}
+
+/**
  * \test overall Testing, that parsing programs, that shouldn't be parsed (eg. syntax errors) throws an error.
  */
 TEST ( overall, failtures ) {
