@@ -4,7 +4,7 @@ TooReadable
 **The programming language readable by non-developers!**
 
 > **Note:** This project is in early development.  
->  It means, that it runs programs, but does offer contain any useful commands yet.
+>  It means, that it runs programs, but does not offer any useful commands yet.
 
 Building & running
 ------------------
