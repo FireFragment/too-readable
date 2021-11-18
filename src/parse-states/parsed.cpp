@@ -1,52 +1,55 @@
 #include "parsed.h"
+#include "../builtinfunction.h"
 
 TooReadable::ParseStates::Parsed::Parsed(Divided original)
 {    
     // Copy name of original's functions to `funcs`.
     // Steps will be parsed soon.
     for (Divided::Function func : original.functions) { 
-        funcs.push_back(Function(func.name));
+        funcs.push_back(new UserDefinedFunc(func.name));
         
         if (original.mainFunc == func.name)
-            mainFunc = &(funcs.back());
+            mainFunc = funcs.back();
     }
     
     // Parse steps
     // Iterate through `original.functions` and `funcs` at once.
-    std::vector<Function>::iterator thisFunc = funcs.begin();
-    for (Divided::Function func : original.functions) {
+    std::vector<UserDefinedFunc*>::iterator thisFunc = funcs.begin();
+    for (Divided::Function func : original.functions) { // For each user-defined function in the program.
         std::vector<Step> steps; // Steps of `func`
         
         // Parse each step
-        for (std::string stepStr : func.steps) {
+        for (std::string stepStr : func.steps) 
+            steps.push_back(Step(GetFuncNamed(stepStr))); // Add pointer to the function named `stepStr` to `funcs`.
             
-            Function* stepFunc = 0x000000;
-            
-            // Find function named `step` and save it to `stepFunc`
-            for (Function& i : funcs)
-                if (i.name == stepStr) {
-                    stepFunc = &i;
-                    break;
-                }
-            
-            if (stepFunc == 0x000000) { // No function named `step` found
-                throw FuncNotDefined(stepStr);
-            }
-            
-            steps.push_back(Step(stepFunc));
-        }
-        
-        thisFunc->body = steps;
+        // Write steps to the function
+        (*thisFunc)->body = steps;
         thisFunc++;
     }
 }
 
-void TooReadable::ParseStates::Parsed::Step::run() 
+TooReadable::ParseStates::Parsed::Function* TooReadable::ParseStates::Parsed::GetFuncNamed(const std::string name) {
+    // Search through user-defined functions.
+    for (Function* i : funcs)
+        if (i->name == name) 
+            return i;
+        
+    // Search through builtin functions.
+    for (Function* i : BuiltinFuncs::list) {
+        if (i->name == name) 
+            return i;
+    }
+    
+    // Nothing found.
+    throw FuncNotDefined(name);
+}
+
+const void TooReadable::ParseStates::Parsed::Step::run() 
 {
     toCall->run();
 }
 
-void TooReadable::ParseStates::Parsed::Function::run() 
+const void TooReadable::ParseStates::Parsed::UserDefinedFunc::run() 
 {
     for (Step step : body) {
         step.run();

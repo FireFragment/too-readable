@@ -2,7 +2,7 @@
 
 using namespace TooReadable;
 
-void TooReadable::BuiltinFunction::run() {
+const void TooReadable::BuiltinFunction::run() {
     toRun();
 }
 

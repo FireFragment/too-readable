@@ -26,7 +26,7 @@ public:
     /**
      * \brief Run the function
      */
-    void run();
+    const void run();
 };
 
 

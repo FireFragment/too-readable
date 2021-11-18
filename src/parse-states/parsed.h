@@ -25,7 +25,7 @@ public:
         /**
          * \brief Execute the step
          */
-        void run();
+        const void run();
     };
     
     /**
@@ -41,15 +41,35 @@ public:
         std::string name;
         
         /**
+         * \brief Execute the function
+         */
+        virtual const void run() = 0;
+    };
+    
+    /**
+     * \brief Function defined by user
+     * 
+     * Function defined by `How to` keyword by the user.
+     */
+    struct UserDefinedFunc : public Function {
+        using Function::Function; // Inherit constructors
+        
+        /**
          * \brief The body of the function
          */
         std::vector<Step> body;
-        
-        /**
-         * \brief Execute the function
-         */
-        void run();
+        const void run();
     };
+    
+    /**
+     * \brief Find function by name.
+     * 
+     * If there isn't such a function, the \c FuncNotDefined exception is thrown.
+     * 
+     * \param[in] name Name of function to return.
+     * \return User-defined or builtin TOR function named \c name.
+     */
+    Function* GetFuncNamed(std::string name);
     
     /**
      * \brief Main function - function ran when program starts
@@ -58,8 +78,9 @@ public:
     
     /**
      * Functions of the program
+     * TODO: Change to vector of UserDefinedFuncs
      */
-    std::vector<Function> funcs;
+    std::vector<UserDefinedFunc*> funcs;
     
     /**
      * \brief Parses \c original.
