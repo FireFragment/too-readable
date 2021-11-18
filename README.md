@@ -4,7 +4,7 @@ TooReadable
 **The programming language readable by non-developers!**
 
 > **Note:** This project is in early development.  
->  It means, that it does not run programs yet, but parses them inside.
+>  It means, that it runs programs, but does offer contain any useful commands yet.
 
 Building & running
 ------------------
@@ -28,13 +28,14 @@ make
 
 ### Running
 
-Then write your program, name the file `program.tor`, place it in the build directory and run:
+In the build directory, run:
 
 ```bash
-./tooreadable program.tor
+./tooreadable ./test_code/testing_code.tor
 ```
 
-and it should... *do nothing*! - We are in early development yet.
+It should print output of the sample program.  
+Then try editing`testing_code.tor`yourself (eg. change order of commands, create your own functions, etc.) and run it agin!
 
 ### Testing
 
