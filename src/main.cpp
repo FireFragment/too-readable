@@ -3,8 +3,9 @@
 #include <string>
 #include "ReadFile.h"
 #include "exception.h"
-#include "parse-states/divided.h"
 #include "parse-states/unparsed.h"
+#include "parse-states/divided.h"
+#include "parse-states/parsed.h"
 
 using namespace TooReadable;
 
@@ -22,6 +23,7 @@ int main ( int argc, char** argv )
         inputFile = std::ifstream ( argv[1] );
         ParseStates::Unparsed code = ReadFile ( inputFile );
         ParseStates::Divided dividedCode = code;
+        ParseStates::Parsed parsedCode = dividedCode;
         
     } catch ( Exception& err ) {
         std::cout << "ERROR! " << err.what() << std::endl;
