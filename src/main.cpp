@@ -24,6 +24,7 @@ int main ( int argc, char** argv )
         ParseStates::Unparsed code = ReadFile ( inputFile );
         ParseStates::Divided dividedCode = code;
         ParseStates::Parsed parsedCode = dividedCode;
+        parsedCode.Run();
         
     } catch ( Exception& err ) {
         std::cout << "ERROR! " << err.what() << std::endl;
