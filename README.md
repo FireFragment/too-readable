@@ -4,7 +4,7 @@ TooReadable
 **The programming language readable by non-developers!**
 
 > **Note:** This project is in early development.  
->  It means, that it does nothing useful yet, but partially parses the program inside.
+>  It means, that it does not run programs yet, but parses them inside.
 
 Building & running
 ------------------
