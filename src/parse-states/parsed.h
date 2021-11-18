@@ -108,6 +108,13 @@ public:
          */
         std::string FuncName;
     };
+    
+    /**
+     * \brief Run the program.
+     */
+    void Run() {
+        mainFunc->run();
+    };
 };
 
 }
