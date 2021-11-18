@@ -7,7 +7,8 @@
 namespace TooReadable::ParseStates {
 
 /**
- * \brief Fully parsed TOR program, ready to run.
+ * \class Parsed parsed.h "parse-states/parsed.h"
+ * \brief **Second stage of parsing:** fully parsed TOR program, ready to run.
  */
 class Parsed
 {
