@@ -208,6 +208,7 @@ TEST ( overall, failtures ) {
             // Try to parse the code
             TooReadable::ParseStates::Unparsed code = ReadFile ( inputFile );
             TooReadable::ParseStates::Divided dividedCode = code;
+            TooReadable::ParseStates::Parsed parsedCode = dividedCode;
         });
 
     }
