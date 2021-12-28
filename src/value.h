@@ -1,15 +1,12 @@
 #pragma once
 
 #include <string>
-#include <ranges>
 #include "exception.h"
 
 namespace TooReadable {
 
 /**
  * \brief **Value used in TOR program** as arguments, return values, value of variables, etc.
- * 
- * @remark 
  */
 class Value {
 public:
