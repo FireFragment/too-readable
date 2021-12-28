@@ -6,6 +6,7 @@
 #include "src/parse-states/parsed.h"
 #include "src/ReadFile.h"
 #include "src/builtinfunction.h"
+#include "src/value.h"
 
 /**
  * \test Case, where it continues with string it should
@@ -220,4 +221,45 @@ TEST ( overall, failtures ) {
 TEST ( builtin_funcs, not_crashing ) {
     for (TooReadable::BuiltinFunction* func : TooReadable::BuiltinFuncs::list)
         func->run();
+}
+
+/**
+ * @test value Ensure, that conversion of `Value` to `bool` and `bool` to `Value` is done properly.
+ */
+TEST( value, bool_cast ) {
+    TooReadable::Value t;
+    t = true;
+    EXPECT_TRUE(t);
+    t = false;
+    std::cout << std::string(t) << '\n';
+    EXPECT_FALSE(t);
+    
+    t = "YES"; EXPECT_TRUE(t);
+    t = "Yes"; EXPECT_TRUE(t);
+    t = "yes"; EXPECT_TRUE(t);
+    
+    t = "NO"; EXPECT_FALSE(t);
+    t = "No"; EXPECT_FALSE(t);
+    t = "no"; EXPECT_FALSE(t);
+    
+    t = "Hello world";
+    EXPECT_THROW(
+        bool aa = t,
+        TooReadable::Value::InvalidBoolConv
+    );
+}
+
+
+/**
+ * @test value Ensure, that conversion of `Value` to `int` and `int` to `Value` is done properly.
+ */
+TEST( value, int_cast ) {
+    TooReadable::Value t;
+    t = 123;
+    EXPECT_EQ(t, 123);
+    EXPECT_EQ(std::string(t), "123");
+    
+    t = "-137";
+    EXPECT_EQ(t, -137);
+    EXPECT_EQ(std::string(t), "-137");
 }

@@ -2,7 +2,6 @@
 #include <fstream>
 #include <string>
 #include "ReadFile.h"
-#include "exception.h"
 #include "parse-states/unparsed.h"
 #include "parse-states/divided.h"
 #include "parse-states/parsed.h"
