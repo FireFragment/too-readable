@@ -9,5 +9,15 @@ How to run the sample program
 How to greet everything and everyone
 ====================================
 
+What do we need to know
+-----------------------
+
+To Greet everything and everyone, we need to also know theese values:
+ - Test argument 1
+ - Second testing argument
+
+Instructions
+------------
+
  1. Greet the world.
  2. Greet the user.

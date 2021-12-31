@@ -17,6 +17,7 @@ public:
      */
     class Function {
     public:
+        
         Function(
             const std::string name,
             std::vector<std::string> steps
@@ -26,6 +27,38 @@ public:
         bool operator== (Function rhs) const {
             return (rhs.name == name) && (rhs.steps == steps);
         };
+        
+        /**
+         * @brief Out-of-line arguments of the function
+         * 
+         * Out-of-line arguments are assigned in function call this way:
+         * ~~~~{.tor}
+         * 1. Do something
+         *     - Inline argument 1: "Value of the argument"
+         *     - Inline argument 2: "Value of the second argument"
+         * ~~~~
+         * 
+         * Out-of-line arguments are defined in function definition this way:
+         * ~~~~{.tor}
+         * How to do something
+         * ===================
+         * 
+         * What do we need to know
+         * -----------------------
+         * 
+         * To do something, we need to also know theese values:
+         * 
+         *  - Inline argument 1
+         *  - Inline argument 2
+         * 
+         * Instructions
+         * ------------
+         * 
+         *  1. Here is the function body
+         *  2. Second step
+         * ~~~~
+         */
+        std::vector<std::string> outOfLineArgs;
 
         /**
          * \brief Name of the function.

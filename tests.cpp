@@ -147,7 +147,7 @@ TEST ( unparsed_expectEnd, failture )
 }
 
 // Sample TOR program used across the tests
-const std::string sampleProgram = "Please run the sample program.\n\nHow to run the sample program\n=============================\n\n 1. Greet everything and everyone.\n 2. Propagate TooReadable.\n\nHow to greet everything and everyone\n====================================\n\n 1. Greet the world.\n 2. Greet the user.\n";
+const std::string sampleProgram = "Please run the sample program.\n\nHow to run the sample program\n=============================\n\n 1. Greet everything and everyone.\n 2. Propagate TooReadable.\n\nHow to greet everything and everyone\n====================================\n\nWhat do we need to know\n-----------------------\n\nTo Greet everything and everyone, we need to also know theese values:\n - Test argument 1\n - Second testing argument\n\nInstructions\n------------\n\n 1. Greet the world.\n 2. Greet the user.\n";
 
 // Sample TOR library used across the tests
 const std::string sampleLib = "How to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n\nHow to do another stuff\n=======================\n\n 1. Do something.\n 2. Do something different.\n";
@@ -174,6 +174,9 @@ TEST ( divided, program )
             }))
         }
     ));
+    
+    EXPECT_EQ(test1.functions[0].outOfLineArgs.size(), 0);
+    EXPECT_EQ(test1.functions[1].outOfLineArgs, std::vector<std::string>({ "Test argument 1", "Second testing argument" }));
 }
 
 /**
@@ -248,7 +251,6 @@ TEST( value, bool_cast ) {
         TooReadable::Value::InvalidBoolConv
     );
 }
-
 
 /**
  * @test value Ensure, that conversion of `Value` to `int` and `int` to `Value` is done properly.
