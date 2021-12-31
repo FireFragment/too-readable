@@ -23,6 +23,8 @@ public:
     /**
      * \param[in] continueWith String, that the program should continue with
      * \param[in] doThrow Whether the function should throw an exception when value of the \c continueWith arg wasn't found
+     * 
+     * \returns Empty string, if everything matched properly, else returns, what was found instead.
      */
     std::string ContinueWith(const std::string continueWith, const bool doThrow = true);
 
