@@ -13,6 +13,44 @@ class Divided
 {
 public:
     /**
+     * \brief \c Function call
+     */
+    class Step {
+    public:
+        Step(std::string funcName) : funcName(funcName) {};
+        
+        bool operator== (Step rhs) const {
+            return (rhs.funcName == funcName) && (rhs.outOfLineArgs == outOfLineArgs);
+        };
+        /**
+         * @brief Out-of-line argument assignment when calling function
+         */
+        class OutOfLineArgument {
+        public:
+            bool operator== (OutOfLineArgument rhs) const {
+                return (rhs.name == name) && (rhs.value == value);
+            };
+            /**
+             * @brief The name of the argument
+             */
+            std::string name;
+            /**
+             * @brief The assigned value
+             */
+            std::string value;
+        };
+        
+        /**
+         * @brief The name of the called function
+         */
+        std::string funcName;
+        /**
+         * @brief Out-of-line arguments passed to the function
+         */
+        std::vector<OutOfLineArgument> outOfLineArgs;
+    };
+    
+    /**
      * \brief Function of TOR program.
      */
     class Function {
@@ -20,7 +58,7 @@ public:
         
         Function(
             const std::string name,
-            std::vector<std::string> steps
+            std::vector<Step> steps
         ):name(name), steps(steps) {};
         Function() {};
 
@@ -67,7 +105,7 @@ public:
         /**
          * \brief Steps of the function.
          */
-        std::vector<std::string> steps;
+        std::vector<Step> steps;
     };
     
     /**

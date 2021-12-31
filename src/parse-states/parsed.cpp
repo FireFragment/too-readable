@@ -19,8 +19,8 @@ TooReadable::ParseStates::Parsed::Parsed(Divided original)
         std::vector<Step> steps; // Steps of `func`
         
         // Parse each step
-        for (std::string stepStr : func.steps) 
-            steps.push_back(Step(GetFuncNamed(stepStr))); // Add pointer to the function named `stepStr` to `funcs`.
+        for (Divided::Step step : func.steps) 
+            steps.push_back(Step(GetFuncNamed(step.funcName))); // Add pointer to the function named `stepStr` to `funcs`.
             
         // Write steps to the function
         (*thisFunc)->body          = steps;

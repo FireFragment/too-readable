@@ -166,11 +166,11 @@ TEST ( divided, program )
     EXPECT_EQ(test1.mainFunc, "Run the sample program");
     EXPECT_EQ(test1.functions, 
         std::vector<TooReadable::ParseStates::Divided::Function> ({
-            TooReadable::ParseStates::Divided::Function("Run the sample program", std::vector<std::string>({
-                "Greet everything and everyone", "Propagate TooReadable"
+            TooReadable::ParseStates::Divided::Function("Run the sample program", std::vector<TooReadable::ParseStates::Divided::Step>({
+                TooReadable::ParseStates::Divided::Step("Greet everything and everyone"), TooReadable::ParseStates::Divided::Step("Propagate TooReadable")
             })),
-            TooReadable::ParseStates::Divided::Function("Greet everything and everyone", std::vector<std::string>({
-                "Greet the world", "Greet the user"
+            TooReadable::ParseStates::Divided::Function("Greet everything and everyone", std::vector<TooReadable::ParseStates::Divided::Step>({
+                TooReadable::ParseStates::Divided::Step("Greet the world"), TooReadable::ParseStates::Divided::Step("Greet the user")
             }))
         }
     ));
