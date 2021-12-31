@@ -45,6 +45,11 @@ public:
          * \brief Execute the function
          */
         virtual const void run() = 0;
+        
+        /**
+         * \see Divided::Function::outOfLineArgs
+         */
+        std::vector<std::string> outOfLineArgs;
     };
     
     /**

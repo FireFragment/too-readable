@@ -23,7 +23,8 @@ TooReadable::ParseStates::Parsed::Parsed(Divided original)
             steps.push_back(Step(GetFuncNamed(stepStr))); // Add pointer to the function named `stepStr` to `funcs`.
             
         // Write steps to the function
-        (*thisFunc)->body = steps;
+        (*thisFunc)->body          = steps;
+        (*thisFunc)->outOfLineArgs = func.outOfLineArgs;
         thisFunc++;
     }
 }
