@@ -14,7 +14,8 @@ std::string TooReadable::ParseStates::Unparsed::ContinueWith(const std::string c
             );
         }
         else
-            returnVal = importantPortion;
+            // Return " " when `importantPortion` is "" (returning "" may cause program to thinking, that `continueWith` has been found)
+            return importantPortion == "" ? " " : importantPortion; // FIXME: This is very dirty. Return type of this function should be `std::optional<std::string>>` instead
     else
         // Update `currentPos` for next run
         currentPosForContinueWith += continueWith.length();

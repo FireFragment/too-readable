@@ -147,7 +147,7 @@ TEST ( unparsed_expectEnd, failture )
 }
 
 // Sample TOR program used across the tests
-const std::string sampleProgram = "Please run the sample program.\n\nHow to run the sample program\n=============================\n\n 1. Greet everything and everyone.\n 2. Propagate TooReadable.\n\nHow to greet everything and everyone\n====================================\n\nWhat do we need to know\n-----------------------\n\nTo Greet everything and everyone, we need to also know theese values:\n - Test argument 1\n - Second testing argument\n\nInstructions\n------------\n\n 1. Greet the world.\n 2. Greet the user.\n";
+const std::string sampleProgram = "Please run the sample program.\n\nHow to run the sample program\n=============================\n\n 1. Greet everything and everyone.\n     - Test argument 1: `Test`\n     - Second testing argument: `Another test`\n 2. Propagate TooReadable.\n\nHow to greet everything and everyone\n====================================\n\nWhat do we need to know\n-----------------------\n\nTo Greet everything and everyone, we need to also know theese values:\n - Test argument 1\n - Second testing argument\n\nInstructions\n------------\n\n 1. Greet the world.\n 2. Greet the user.\n";
 
 // Sample TOR library used across the tests
 const std::string sampleLib = "How to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n\nHow to do another stuff\n=======================\n\n 1. Do something.\n 2. Do something different.\n";
@@ -164,18 +164,24 @@ TEST ( divided, program )
         std::cout << err.what();
     }
     EXPECT_EQ(test1.mainFunc, "Run the sample program");
-    EXPECT_EQ(test1.functions, 
-        std::vector<TooReadable::ParseStates::Divided::Function> ({
-            TooReadable::ParseStates::Divided::Function("Run the sample program", std::vector<TooReadable::ParseStates::Divided::Step>({
-                TooReadable::ParseStates::Divided::Step("Greet everything and everyone"), TooReadable::ParseStates::Divided::Step("Propagate TooReadable")
-            })),
-            TooReadable::ParseStates::Divided::Function("Greet everything and everyone", std::vector<TooReadable::ParseStates::Divided::Step>({
-                TooReadable::ParseStates::Divided::Step("Greet the world"), TooReadable::ParseStates::Divided::Step("Greet the user")
-            }))
-        }
-    ));
+    
+    // ----- Run the sample program -----
+    EXPECT_EQ(test1.functions[0].name, "Run the sample program");
+    EXPECT_EQ(test1.functions[0].steps[0].funcName, "Greet everything and everyone");
+    EXPECT_EQ(test1.functions[0].steps[1].funcName, "Propagate TooReadable");
+    
+    EXPECT_EQ(test1.functions[0].steps[0].outOfLineArgs[0].name, "Test argument 1"); 
+    EXPECT_EQ(test1.functions[0].steps[0].outOfLineArgs[0].value, "`Test`"); 
+    EXPECT_EQ(test1.functions[0].steps[0].outOfLineArgs[1].name, "Second testing argument"); 
+    EXPECT_EQ(test1.functions[0].steps[0].outOfLineArgs[1].value, "`Another test`"); 
     
     EXPECT_EQ(test1.functions[0].outOfLineArgs.size(), 0);
+    
+    // ----- Greet everything and everyone -----
+    EXPECT_EQ(test1.functions[1].name, "Greet everything and everyone");
+    EXPECT_EQ(test1.functions[1].steps[0].funcName, "Greet the world");
+    EXPECT_EQ(test1.functions[1].steps[1].funcName, "Greet the user");
+    
     EXPECT_EQ(test1.functions[1].outOfLineArgs, std::vector<std::string>({ "Test argument 1", "Second testing argument" }));
 }
 

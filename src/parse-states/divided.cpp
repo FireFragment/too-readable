@@ -1,3 +1,4 @@
+#include <iostream>
 #include "divided.h"
 
 TooReadable::ParseStates::Divided::Divided(Unparsed original)
@@ -49,7 +50,23 @@ TooReadable::ParseStates::Divided::Divided(Unparsed original)
         try {
             while (true) {
                 original.ContinueWith(" " + std::to_string(i) + ". "); // May throw exception
-                func.steps.push_back(original.SkipTo(".\n"));
+                Step step = original.SkipTo(".\n");
+                
+                // -------- Argument list ---------
+                
+                while (true) {
+                    std::string cntWth = original.ContinueWith("     - ", false);
+                    if (cntWth != "") // Check presence of bullet
+                        break;
+                    Step::OutOfLineArgument arg;
+                    arg.name = original.SkipTo(": ");
+                    arg.value = original.SkipTo("\n");
+                    step.outOfLineArgs.push_back(arg); // Add the argument to the step
+                }
+                
+                // ----- End of argument list -----
+                
+                func.steps.push_back(step);
                 
                 i++;
             }
