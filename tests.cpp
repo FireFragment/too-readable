@@ -147,10 +147,12 @@ TEST ( unparsed_expectEnd, failture )
 }
 
 // Sample TOR program used across the tests
-const std::string sampleProgram = "Please run the sample program.\n\nHow to run the sample program\n=============================\n\n 1. Greet everything and everyone.\n     - Test argument 1: `Test`\n     - Second testing argument: `Another test`\n 2. Propagate TooReadable.\n\nHow to greet everything and everyone\n====================================\n\nWhat do we need to know\n-----------------------\n\nTo Greet everything and everyone, we need to also know theese values:\n - Test argument 1\n - Second testing argument\n\nInstructions\n------------\n\n 1. Greet the world.\n 2. Greet the user.\n";
+//const std::string sampleProgram = "Please run the sample program.\n\nHow to run the sample program\n=============================\n\n 1. Greet everything and everyone.\n     - Test argument 1: `Test`\n     - Second testing argument: `Another test`\n 2. Propagate TooReadable.\n\nHow to greet everything and everyone\n====================================\n\nWhat do we need to know\n-----------------------\n\nTo Greet everything and everyone, we need to also know theese values:\n - Test argument 1\n - Second testing argument\n\nInstructions\n------------\n\n 1. Greet the world.\n 2. Greet the user.\n";
 
-// Sample TOR library used across the tests
-const std::string sampleLib = "How to do stuff\n===============\n\n 1. Do something.\n 2. Do something another.\n\nHow to do another stuff\n=======================\n\n 1. Do something.\n 2. Do something different.\n";
+const std::string sampleProgram() {
+    std::ifstream inFile("test_code/testing_code.tor");
+    return ReadFile(inFile);
+}
 
 /**
  * \test divided Test creating \c TooReadable::ParseStates::Divided class from \c sampleProgram.
@@ -159,7 +161,7 @@ TEST ( divided, program )
 {
     TooReadable::ParseStates::Divided test1;
     try {
-        test1 = TooReadable::ParseStates::Unparsed(sampleProgram);
+        test1 = TooReadable::ParseStates::Unparsed(sampleProgram());
     } catch (TooReadable::ParseStates::Unparsed::ArgNotFoundException err) {
         std::cout << err.what();
     }
@@ -190,7 +192,7 @@ TEST ( divided, program )
  */
 TEST ( parsed_constructor, program )
 {
-    TooReadable::ParseStates::Parsed test1 = TooReadable::ParseStates::Divided(TooReadable::ParseStates::Unparsed(sampleProgram));
+    TooReadable::ParseStates::Parsed test1 = TooReadable::ParseStates::Divided(TooReadable::ParseStates::Unparsed(sampleProgram()));
     EXPECT_EQ(test1.mainFunc, test1.funcs[0]); // The main function is correct
     
     // Check names of functions
