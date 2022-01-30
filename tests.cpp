@@ -209,7 +209,7 @@ TEST ( parsed_constructor, program )
     EXPECT_EQ(std::string(test1.funcs[0]->body[0].args[0].val), "`Test`");
     EXPECT_EQ(test1.funcs[0]->body[0].args[0].id, 0);
     EXPECT_EQ(std::string(test1.funcs[0]->body[0].args[1].val), "`Another test`");
-    EXPECT_EQ(test1.funcs[0]->body[0].args[0].id, 1);
+    EXPECT_EQ(test1.funcs[0]->body[0].args[1].id, 1);
 }
 
 /**
