@@ -5,10 +5,12 @@ TooReadable::ParseStates::Parsed::Parsed(Divided original)
 {    
     // Copy name of original's functions to `funcs`.
     // Steps will be parsed soon.
-    for (Divided::Function func : original.functions) { 
-        funcs.push_back(new UserDefinedFunc(func.name));
+    for (Divided::Function dividedFunc : original.functions) { 
+        UserDefinedFunc* parsedFunc = new UserDefinedFunc(dividedFunc.name);
+        parsedFunc->outOfLineArgs = dividedFunc.outOfLineArgs;
+        funcs.push_back(parsedFunc);
         
-        if (original.mainFunc == func.name)
+        if (original.mainFunc == dividedFunc.name)
             mainFunc = funcs.back();
     }
     
@@ -19,8 +21,15 @@ TooReadable::ParseStates::Parsed::Parsed(Divided original)
         std::vector<Step> steps; // Steps of `func`
         
         // Parse each step
-        for (Divided::Step step : func.steps) 
-            steps.push_back(Step(GetFuncNamed(step.funcName))); // Add pointer to the function named `stepStr` to `funcs`.
+        
+        std::transform(
+            func.steps.begin(),
+            func.steps.end(),
+            std::back_inserter(steps),
+            [this](Divided::Step dividedStep) -> Step {
+                return Step(dividedStep, this);
+            }
+        );
             
         // Write steps to the function
         (*thisFunc)->body          = steps;
@@ -29,7 +38,7 @@ TooReadable::ParseStates::Parsed::Parsed(Divided original)
     }
 }
 
-TooReadable::ParseStates::Parsed::Function* TooReadable::ParseStates::Parsed::GetFuncNamed(const std::string name) {
+TooReadable::ParseStates::Parsed::Function* TooReadable::ParseStates::Parsed::GetFuncNamed(const std::string name) const {
     // Search through user-defined functions.
     for (Function* i : funcs)
         if (i->name == name) 
@@ -55,4 +64,27 @@ const void TooReadable::ParseStates::Parsed::UserDefinedFunc::run()
     for (Step step : body) {
         step.run();
     }
+}
+
+TooReadable::ParseStates::Parsed::Step::Step(const Divided::Step original, const Parsed* program)
+{
+    // ----- The function -----
+    toCall = program->GetFuncNamed(original.funcName);
+    
+    // ----- Out of line arguments -----
+    args.reserve(original.outOfLineArgs.size());
+    
+    // Out of line arguments
+    // Converting string names to indexes
+    std::transform(
+        original.outOfLineArgs.begin(),
+        original.outOfLineArgs.end(),
+        std::back_inserter(args),
+        [original](Divided::Step::OutOfLineArgument inArg) -> OutOfLineArgAssignment
+        {
+            return OutOfLineArgAssignment(
+                std::find(original.outOfLineArgs.begin(), original.outOfLineArgs.end(), inArg) - original.outOfLineArgs.begin(), // id
+                inArg.value                                                                                                      // value
+            );
+        });
 }

@@ -204,6 +204,12 @@ TEST ( parsed_constructor, program )
     EXPECT_EQ(test1.funcs[0]->body[1].toCall->name, "Propagate TooReadable");
     EXPECT_EQ(test1.funcs[1]->body[0].toCall->name, "Greet the world");
     EXPECT_EQ(test1.funcs[1]->body[1].toCall->name, "Greet the user");
+    
+    // TODO: Remove the `s (literals should be converted to values) 
+    EXPECT_EQ(std::string(test1.funcs[0]->body[0].args[0].val), "`Test`");
+    EXPECT_EQ(test1.funcs[0]->body[0].args[0].id, 0);
+    EXPECT_EQ(std::string(test1.funcs[0]->body[0].args[1].val), "`Another test`");
+    EXPECT_EQ(test1.funcs[0]->body[0].args[0].id, 1);
 }
 
 /**

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "divided.h"
+#include "../value.h"
 
 namespace TooReadable::ParseStates {
 
@@ -21,12 +22,46 @@ public:
      */
     struct Step {
         Step(Function* toCall):toCall(toCall) {};
+        /**
+         * @brief Convert `Divided::Step` to `Parsed::Step`
+         * 
+         * @param original The step we want to convert to `Parsed::Step`
+         * @param program The program `original` is part of.
+         * Used to get pointer to function.
+         */
+        Step(const Divided::Step original, const Parsed* program);
         Function* toCall;
         
         /**
          * \brief Execute the step
          */
         const void run();
+        
+        /**
+         * @brief Assignment of out-of-line argument
+         */
+        struct OutOfLineArgAssignment {
+            /**
+             * @brief ID of the argument.
+             * 
+             * The index of argument name in `Function::outOfLineArgs`
+             */
+            unsigned int id;
+            /**
+             * @brief The assigned value
+             * 
+             * Supports only literal assignment yet.
+             * TODO: Support non-literal assignments too
+             */
+            Value val;
+            
+            OutOfLineArgAssignment(unsigned int id = 0, Value val = Value()) : id(id), val(val) {};
+        };
+        
+        /**
+         * @brief Assigned arguments
+         */
+        std::vector<OutOfLineArgAssignment> args;
     };
     
     /**
@@ -64,6 +99,7 @@ public:
          * \brief The body of the function
          */
         std::vector<Step> body;
+        
         const void run();
     };
     
@@ -75,7 +111,7 @@ public:
      * \param[in] name Name of function to return.
      * \return User-defined or builtin TOR function named \c name.
      */
-    Function* GetFuncNamed(std::string name);
+    Function* GetFuncNamed(std::string name) const;
     
     /**
      * \brief Main function - function ran when program starts
