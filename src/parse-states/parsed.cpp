@@ -56,10 +56,10 @@ TooReadable::ParseStates::Parsed::Function* TooReadable::ParseStates::Parsed::Ge
 
 const void TooReadable::ParseStates::Parsed::Step::run() 
 {
-    toCall->run();
+    toCall->run(args);
 }
 
-const void TooReadable::ParseStates::Parsed::UserDefinedFunc::run() 
+const void TooReadable::ParseStates::Parsed::UserDefinedFunc::run(std::map<std::string, Value> args) 
 {
     for (Step step : body) {
         step.run();

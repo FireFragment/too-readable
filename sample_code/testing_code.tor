@@ -23,3 +23,5 @@ Instructions
 
  1. Greet the world.
  2. Greet the user.
+ 3. Say something to user.
+     - The message to say: `I hope you are doing well.`

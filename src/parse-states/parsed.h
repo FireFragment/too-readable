@@ -60,7 +60,7 @@ public:
         /**
          * \brief Execute the function
          */
-        virtual const void run() = 0;
+        virtual const void run(std::map<std::string, Value> args) = 0;
         
         /**
          * \see Divided::Function::outOfLineArgs
@@ -81,7 +81,7 @@ public:
          */
         std::vector<Step> body;
         
-        const void run();
+        const void run(std::map<std::string, Value> args);
     };
     
     /**
@@ -135,7 +135,7 @@ public:
      * \brief Run the program.
      */
     void Run() {
-        mainFunc->run();
+        mainFunc->run({});
     };
 };
 
