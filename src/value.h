@@ -57,6 +57,20 @@ public:
     Value(const int _val) { val = std::to_string(_val); };
     Value(const bool _val);
     Value() {};
+    
+    /**
+     * @brief Creates `Value` from literal. Alternative constructor.
+     * 
+     * Literal can be 
+     *  - String wrapped in \` characters (eg. `\`Hello world\` `)
+     *  - Number
+     * 
+     * TODO: Add booleans
+     * 
+     * @param literal The literal
+     * @return TooReadable::Value
+     */
+    static Value FromLiteral(std::string literal);
 protected:
     /**
      * @brief The actual value

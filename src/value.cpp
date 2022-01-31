@@ -24,3 +24,17 @@ TooReadable::Value::Value(const bool _val)
 {
     val = _val ? "YES" : "NO";
 }
+
+TooReadable::Value TooReadable::Value::FromLiteral(std::string literal)
+{
+    // String
+    if (literal.front() == '`' &&
+        literal.back()  == '`'
+    ) {
+        return literal.substr(1, literal.size() - 2);
+    }
+    
+    // Number
+    else
+        return std::stoi(literal);
+}

@@ -84,7 +84,7 @@ TooReadable::ParseStates::Parsed::Step::Step(const Divided::Step original, const
         {
             return OutOfLineArgAssignment(
                 std::find(original.outOfLineArgs.begin(), original.outOfLineArgs.end(), inArg) - original.outOfLineArgs.begin(), // id
-                inArg.value                                                                                                      // value
+                Value::FromLiteral(inArg.value)                                                                                  // value
             );
         });
 }
