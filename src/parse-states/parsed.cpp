@@ -72,19 +72,7 @@ TooReadable::ParseStates::Parsed::Step::Step(const Divided::Step original, const
     toCall = program->GetFuncNamed(original.funcName);
     
     // ----- Out of line arguments -----
-    args.reserve(original.outOfLineArgs.size());
-    
-    // Out of line arguments
-    // Converting string names to indexes
-    std::transform(
-        original.outOfLineArgs.begin(),
-        original.outOfLineArgs.end(),
-        std::back_inserter(args),
-        [original](Divided::Step::OutOfLineArgument inArg) -> OutOfLineArgAssignment
-        {
-            return OutOfLineArgAssignment(
-                std::find(original.outOfLineArgs.begin(), original.outOfLineArgs.end(), inArg) - original.outOfLineArgs.begin(), // id
-                Value::FromLiteral(inArg.value)                                                                                  // value
-            );
-        });
+    for (auto dividedArg : original.outOfLineArgs) {
+        args.insert({dividedArg.name, Value::FromLiteral(dividedArg.value)});
+    }
 }

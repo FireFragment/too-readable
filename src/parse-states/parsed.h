@@ -1,6 +1,8 @@
 #ifndef TOOREADABLE_PARSESTATES_PARSED_H
 #define TOOREADABLE_PARSESTATES_PARSED_H
 
+#include <string>
+#include <map>
 #include <vector>
 #include "divided.h"
 #include "../value.h"
@@ -38,30 +40,9 @@ public:
         const void run();
         
         /**
-         * @brief Assignment of out-of-line argument
-         */
-        struct OutOfLineArgAssignment {
-            /**
-             * @brief ID of the argument.
-             * 
-             * The index of argument name in `Function::outOfLineArgs`
-             */
-            unsigned int id;
-            /**
-             * @brief The assigned value
-             * 
-             * Supports only literal assignment yet.
-             * TODO: Support non-literal assignments too
-             */
-            Value val;
-            
-            OutOfLineArgAssignment(unsigned int id = 0, Value val = Value()) : id(id), val(val) {};
-        };
-        
-        /**
          * @brief Assigned arguments
          */
-        std::vector<OutOfLineArgAssignment> args;
+        std::map<std::string, Value> args;
     };
     
     /**
