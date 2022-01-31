@@ -17,7 +17,7 @@ class Parsed
 {
 public:
     
-    struct Function; // Forward declaration
+    class Function; // Forward declaration
     
     /**
      * \brief \c Function call
@@ -48,7 +48,7 @@ public:
     /**
      * \brief Function of TOR program
      */
-    struct Function {
+    class Function {
         Function() {}; // Default constructor
         Function(std::string name):name(name) {};
         
