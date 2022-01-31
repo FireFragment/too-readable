@@ -49,6 +49,7 @@ public:
      * \brief Function of TOR program
      */
     class Function {
+    public:
         Function() {}; // Default constructor
         Function(std::string name):name(name) {};
         
