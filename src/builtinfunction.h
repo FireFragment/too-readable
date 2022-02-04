@@ -16,26 +16,26 @@ class BuiltinFunction : public ParseStates::Parsed::Function
 public:
     
     BuiltinFunction() {};
-    BuiltinFunction(std::string name_, void (*toRun)(std::map<std::string, Value> args)): toRun(toRun) {name = name_;};
+    BuiltinFunction(std::string name_, void (*toRun)(std::vector<Value> args)): toRun(toRun) {name = name_;};
     
     /**
      * \brief What should be ran when calling this function
      */
-    void (*toRun)(std::map<std::string, Value> args);
+    void (*toRun)(std::vector<Value> args);
     
     /**
      * \brief Run the function
-     */
-    const void run(std::map<std::string, Value> args);
+     */    
+    const void run(std::vector<Value> args) override;
 };
 
 
 namespace BuiltinFuncs
 {
-    void HelloWorld(std::map<std::string, Value> args);
-    void Greet(std::map<std::string, Value> args);
-    void Advert(std::map<std::string, Value> args);
-    void Echo(std::map<std::string, Value> args);
+    void HelloWorld(std::vector<Value> args);
+    void Greet(std::vector<Value> args);
+    void Advert(std::vector<Value> args);
+    void Echo(std::vector<Value> args);
     
     /**
      * \brief List of all TooReadable builtin functions

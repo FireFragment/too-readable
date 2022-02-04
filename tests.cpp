@@ -205,8 +205,8 @@ TEST ( parsed_constructor, program )
     EXPECT_EQ(test1.funcs[1]->body[0].toCall->name, "Greet the world");
     EXPECT_EQ(test1.funcs[1]->body[1].toCall->name, "Greet the user");
     
-    EXPECT_EQ(std::string(test1.funcs[0]->body[0].args["Test argument 1"]), "Test");
-    EXPECT_EQ(std::string(test1.funcs[0]->body[0].args["Second testing argument"]), "Another test");
+    EXPECT_EQ(std::string(test1.funcs[0]->body[0].args[0]), "Test");
+    EXPECT_EQ(std::string(test1.funcs[0]->body[0].args[1]), "Another test");
 }
 
 /**

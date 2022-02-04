@@ -4,8 +4,8 @@ How to run the sample program
 =============================
 
  1. Greet everything and everyone.
-     - Test argument 1: `Test`
      - Second testing argument: `Another test`
+     - Test argument 1: `Test`
  2. Propagate TooReadable.
 
 How to greet everything and everyone

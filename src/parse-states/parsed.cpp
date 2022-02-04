@@ -59,7 +59,7 @@ const void TooReadable::ParseStates::Parsed::Step::run()
     toCall->run(args);
 }
 
-const void TooReadable::ParseStates::Parsed::UserDefinedFunc::run(std::map<std::string, Value> args) 
+const void TooReadable::ParseStates::Parsed::UserDefinedFunc::run(std::vector<Value> args) 
 {
     for (Step step : body) {
         step.run();
@@ -71,8 +71,12 @@ TooReadable::ParseStates::Parsed::Step::Step(const Divided::Step original, const
     // ----- The function -----
     toCall = program->GetFuncNamed(original.funcName);
     
+    args.reserve(toCall->outOfLineArgs.size());
+    
     // ----- Out of line arguments -----
     for (auto dividedArg : original.outOfLineArgs) {
-        args.insert({dividedArg.name, Value::FromLiteral(dividedArg.value)});
+        // Get index of dividedArg
+        unsigned short index = std::find(toCall->outOfLineArgs.begin(), toCall->outOfLineArgs.end(), dividedArg.name)- toCall->outOfLineArgs.begin();
+        args.insert(args.begin() + index, Value::FromLiteral(dividedArg.value));
     }
 }
