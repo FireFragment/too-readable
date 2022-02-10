@@ -22,3 +22,10 @@ void TooReadable::BuiltinFuncs::Echo (std::vector<Value> args)
 {
     std::cout << (std::string)args[0] << std::endl;
 }
+
+void TooReadable::BuiltinFuncs::Test ( std::vector<Value> args )
+{
+    std::cout << "Testing function launched.\nFIRST ARGUMENT:" << (std::string)args[0]
+        << "\nSECOND ARGUMENT: " << (std::string)args[1]
+        << "\nTHIRD ARGUMENT: "  << (std::string)args[2];
+}

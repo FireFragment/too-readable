@@ -71,12 +71,17 @@ TooReadable::ParseStates::Parsed::Step::Step(const Divided::Step original, const
     // ----- The function -----
     toCall = program->GetFuncNamed(original.funcName);
     
+    // ----- Out of line arguments -----
     args.reserve(toCall->outOfLineArgs.size());
     
-    // ----- Out of line arguments -----
-    for (auto dividedArg : original.outOfLineArgs) {
-        // Get index of dividedArg
-        unsigned short index = std::find(toCall->outOfLineArgs.begin(), toCall->outOfLineArgs.end(), dividedArg.name)- toCall->outOfLineArgs.begin();
-        args.insert(args.begin() + index, Value::FromLiteral(dividedArg.value));
+    // The index of following loop
+    unsigned int i = 0;
+    for (auto it = toCall->outOfLineArgs.begin(); it != toCall->outOfLineArgs.end(); it++) {
+        // Copy values of arguments to corresponding indexes. 
+        // Fining is needed, because in step, arguments may be listed in different order, than in the definition.
+        args.insert(args.begin() + i, Value::FromLiteral(std::find_if(original.outOfLineArgs.begin(), original.outOfLineArgs.end(), [it](Divided::Step::OutOfLineArgument arg) -> bool {
+            return arg.name == *it;
+        })->value));
+        i++;
     }
 }

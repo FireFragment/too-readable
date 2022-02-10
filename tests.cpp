@@ -172,10 +172,12 @@ TEST ( divided, program )
     EXPECT_EQ(test1.functions[0].steps[0].funcName, "Greet everything and everyone");
     EXPECT_EQ(test1.functions[0].steps[1].funcName, "Propagate TooReadable");
     
-    EXPECT_EQ(test1.functions[0].steps[0].outOfLineArgs[0].name, "Test argument 1"); 
-    EXPECT_EQ(test1.functions[0].steps[0].outOfLineArgs[0].value, "`Test`"); 
-    EXPECT_EQ(test1.functions[0].steps[0].outOfLineArgs[1].name, "Second testing argument"); 
-    EXPECT_EQ(test1.functions[0].steps[0].outOfLineArgs[1].value, "`Another test`"); 
+    // In the testing program, arguments are listed in wrong order (it should be allowed)
+    // Arguments are put to correct order in constructor of `Parsed`.
+    EXPECT_EQ(test1.functions[0].steps[0].outOfLineArgs[0].name, "Second testing argument"); 
+    EXPECT_EQ(test1.functions[0].steps[0].outOfLineArgs[0].value, "`Another test`"); 
+    EXPECT_EQ(test1.functions[0].steps[0].outOfLineArgs[1].name, "Test argument 1"); 
+    EXPECT_EQ(test1.functions[0].steps[0].outOfLineArgs[1].value, "`Test`"); 
     
     EXPECT_EQ(test1.functions[0].outOfLineArgs.size(), 0);
     

@@ -7,6 +7,10 @@ How to run the sample program
      - Second testing argument: `Another test`
      - Test argument 1: `Test`
  2. Propagate TooReadable.
+ 3. My testing function.
+     - Third testing argument: `Hello third`
+     - First testing argument: `Hello first`
+     - Second testing argument: `Hello second`
 
 How to greet everything and everyone
 ====================================
