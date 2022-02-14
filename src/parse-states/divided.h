@@ -36,6 +36,8 @@ public:
             std::string name;
             /**
              * @brief The assigned value
+             * 
+             * In format of unparsed expression
              */
             std::string value;
         };
