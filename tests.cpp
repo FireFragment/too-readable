@@ -170,7 +170,9 @@ TEST ( divided, program )
     // ----- Run the sample program -----
     EXPECT_EQ(test1.functions[0].name, "Run the sample program");
     EXPECT_EQ(test1.functions[0].steps[0].funcName, "Greet everything and everyone");
+    EXPECT_EQ(test1.functions[0].steps[0].parentFunc, test1.functions[0].name);
     EXPECT_EQ(test1.functions[0].steps[1].funcName, "Propagate TooReadable");
+    EXPECT_EQ(test1.functions[0].steps[1].parentFunc, test1.functions[0].name);
     
     // In the testing program, arguments are listed in wrong order (it should be allowed)
     // Arguments are put to correct order in constructor of `Parsed`.

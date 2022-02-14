@@ -17,10 +17,10 @@ public:
      */
     class Step {
     public:
-        Step(std::string funcName) : funcName(funcName) {};
+        Step(std::string funcName, std::string parentFunc) : funcName(funcName), parentFunc(parentFunc) {};
         
         bool operator== (Step rhs) const {
-            return (rhs.funcName == funcName) && (rhs.outOfLineArgs == outOfLineArgs);
+            return (rhs.funcName == funcName) && (rhs.outOfLineArgs == outOfLineArgs) && (rhs.parentFunc == parentFunc);
         };
         /**
          * @brief Out-of-line argument assignment when calling function
@@ -46,6 +46,14 @@ public:
          * @brief The name of the called function
          */
         std::string funcName;
+        
+        /**
+         * @brief The name of the parent function
+         * 
+         * The step is part of body of this function 
+         */
+        std::string parentFunc;
+        
         /**
          * @brief Out-of-line arguments passed to the function
          */

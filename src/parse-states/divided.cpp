@@ -50,7 +50,7 @@ TooReadable::ParseStates::Divided::Divided(Unparsed original)
         try {
             while (true) {
                 original.ContinueWith(" " + std::to_string(i) + ". "); // May throw exception
-                Step step = original.SkipTo(".\n");
+                Step step(original.SkipTo(".\n"), func.name);
                 
                 // -------- Argument list ---------
                 
