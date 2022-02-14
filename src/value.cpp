@@ -1,4 +1,5 @@
 #include "value.h"
+#include <algorithm>
 
 const std::string TooReadable::Value::InvalidBoolConv::what() {
     return "You tried to convert " + badVal + " to YES/NO value, but I don't know, whether " + badVal + " is YES or NO.\nIt has to be one of: `yes`, `Yes`, `YES`, `no`, `No` or `NO`.";
@@ -35,6 +36,14 @@ TooReadable::Value TooReadable::Value::FromLiteral(std::string literal)
     }
     
     // Number
-    else
+    else if (IsNum(literal))
         return std::stoi(literal);
+    else
+        throw BadLiteral(literal);
+}
+
+bool TooReadable::Value::IsNum(const std::string& s)
+{
+    return !s.empty() && std::find_if(s.begin(), 
+        s.end(), [](unsigned char c) { return !std::isdigit(c); }) == s.end();
 }

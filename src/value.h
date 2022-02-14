@@ -12,6 +12,26 @@ class Value {
 public:
     
     /**
+     * @brief Thrown when invalid literal was passed to `FromLiteral`
+     * 
+     */
+    class BadLiteral : public Exception {
+    public:
+        /**
+         * @brief The invalid literal causing the problem
+         * 
+         */
+        std::string literal;
+        
+        BadLiteral(std::string literal) : literal(literal) {}
+        
+        virtual const std::string what()
+        {
+            return '"' + literal + "\" isn't valid number!\nIf you meant it to be a text, wrap it in `, so it would became: `" + literal + "`";
+        };
+    };
+    
+    /**
      * @brief Thrown, when conversion of `Value` to `bool` failed, because it wasn't convertable to `bool`.
      */
     class InvalidBoolConv : public Exception {
@@ -76,5 +96,13 @@ protected:
      * @brief The actual value
      */
     std::string val;
+    
+    /**
+     * @brief Checks if given string is a valid number
+     * 
+     * @param s String to check
+     * @return `true`, if `s` is valid number, `0` otherwise.
+     */
+    static bool IsNum(const std::string& s);
 };
 }
