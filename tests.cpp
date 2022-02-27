@@ -7,6 +7,7 @@
 #include "src/ReadFile.h"
 #include "src/builtinfunction.h"
 #include "src/value.h"
+#include "src/expression.h"
 
 /**
  * \test Case, where it continues with string it should
@@ -280,4 +281,18 @@ TEST( value, int_cast ) {
     t = "-137";
     EXPECT_EQ(t, -137);
     EXPECT_EQ(std::string(t), "-137");
+}
+
+TEST( expression, literal ) {
+    TooReadable::Expression e = TooReadable::Value("aa");
+    EXPECT_EQ(e.type(), TooReadable::Expression::Literal);
+    EXPECT_EQ((std::string)e.evaluate({}), "aa");
+}
+
+
+TEST( expression, variable ) {
+    TooReadable::Expression e = 3;
+    std::vector<TooReadable::Value> vars = {123, 45, 887, 778, 56};
+    EXPECT_EQ(e.type(), TooReadable::Expression::Variable);
+    EXPECT_EQ(e.evaluate(&vars), 778);
 }
