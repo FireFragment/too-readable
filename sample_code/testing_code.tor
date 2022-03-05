@@ -3,29 +3,36 @@ Please run the sample program.
 How to run the sample program
 =============================
 
- 1. Greet everything and everyone.
-     - Second testing argument: `Another test`
-     - Test argument 1: `Test`
+ 1. Greet the user.
  2. Propagate TooReadable.
- 3. My testing function.
-     - Third testing argument: `Hello third`
-     - First testing argument: `Hello first`
-     - Second testing argument: `Hello second`
+ 3. Display sample data.
+     - User's age: `36`
+     - Current weather: `Sunny`
+     - User's name: `Sam`
 
-How to greet everything and everyone
-====================================
+How to display sample data
+==========================
 
 What do we need to know
 -----------------------
 
-To Greet everything and everyone, we need to also know theese values:
- - Test argument 1
- - Second testing argument
+To Display sample data, we need to also know theese values:
+ - User's name
+ - User's age
+ - Current weather
 
 Instructions
 ------------
 
- 1. Greet the world.
- 2. Greet the user.
+ 1. Say something to user.
+     - The message to say: `YOUR NAME IS:`
+ 2. Say something to user.
+     - The message to say: User's name
  3. Say something to user.
-     - The message to say: `I hope you are doing well.`
+     - The message to say: `YOUR AGE IS:`
+ 4. Say something to user.
+     - The message to say: User's age
+ 5. Say something to user.
+     - The message to say: `WEATHER:`
+ 6. Say something to user.
+     - The message to say: Current weather

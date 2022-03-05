@@ -170,26 +170,25 @@ TEST ( divided, program )
     
     // ----- Run the sample program -----
     EXPECT_EQ(test1.functions[0].name, "Run the sample program");
-    EXPECT_EQ(test1.functions[0].steps[0].funcName, "Greet everything and everyone");
+    EXPECT_EQ(test1.functions[0].steps[0].funcName, "Greet the user");
     EXPECT_EQ(test1.functions[0].steps[0].parentFunc, test1.functions[0].name);
     EXPECT_EQ(test1.functions[0].steps[1].funcName, "Propagate TooReadable");
     EXPECT_EQ(test1.functions[0].steps[1].parentFunc, test1.functions[0].name);
     
     // In the testing program, arguments are listed in wrong order (it should be allowed)
     // Arguments are put to correct order in constructor of `Parsed`.
-    EXPECT_EQ(test1.functions[0].steps[0].outOfLineArgs[0].name, "Second testing argument"); 
-    EXPECT_EQ(test1.functions[0].steps[0].outOfLineArgs[0].value, "`Another test`"); 
-    EXPECT_EQ(test1.functions[0].steps[0].outOfLineArgs[1].name, "Test argument 1"); 
-    EXPECT_EQ(test1.functions[0].steps[0].outOfLineArgs[1].value, "`Test`"); 
+    EXPECT_EQ(test1.functions[0].steps[2].outOfLineArgs[0].name, "User's age");
+    EXPECT_EQ(test1.functions[0].steps[2].outOfLineArgs[0].value, "`36`");
+    EXPECT_EQ(test1.functions[0].steps[2].outOfLineArgs[1].name, "Current weather");
+    EXPECT_EQ(test1.functions[0].steps[2].outOfLineArgs[1].value, "`Sunny`");
     
     EXPECT_EQ(test1.functions[0].outOfLineArgs.size(), 0);
+    EXPECT_EQ(test1.functions[1].outOfLineArgs.size(), 3);
+
+    // ----- Display sample data -----
+    EXPECT_EQ(test1.functions[1].name, "Display sample data");
     
-    // ----- Greet everything and everyone -----
-    EXPECT_EQ(test1.functions[1].name, "Greet everything and everyone");
-    EXPECT_EQ(test1.functions[1].steps[0].funcName, "Greet the world");
-    EXPECT_EQ(test1.functions[1].steps[1].funcName, "Greet the user");
-    
-    EXPECT_EQ(test1.functions[1].outOfLineArgs, std::vector<std::string>({ "Test argument 1", "Second testing argument" }));
+    EXPECT_EQ(test1.functions[1].outOfLineArgs, std::vector<std::string>({ "User's name", "User's age", "Current weather" }));
 }
 
 /**
@@ -202,16 +201,19 @@ TEST ( parsed_constructor, program )
     
     // Check names of functions
     EXPECT_EQ(test1.funcs[0]->name, "Run the sample program");
-    EXPECT_EQ(test1.funcs[1]->name, "Greet everything and everyone");
+    EXPECT_EQ(test1.funcs[1]->name, "Display sample data");
     
     // Check bodies of functions
-    EXPECT_EQ(test1.funcs[0]->body[0].toCall, test1.funcs[1]);
+    EXPECT_EQ(test1.funcs[0]->body[0].toCall->name, "Greet the user");
     EXPECT_EQ(test1.funcs[0]->body[1].toCall->name, "Propagate TooReadable");
-    EXPECT_EQ(test1.funcs[1]->body[0].toCall->name, "Greet the world");
-    EXPECT_EQ(test1.funcs[1]->body[1].toCall->name, "Greet the user");
-    
-    EXPECT_EQ((std::string)test1.funcs[0]->body[0].args[0].evaluate({}), "Test");
-    EXPECT_EQ((std::string)test1.funcs[0]->body[0].args[1].evaluate({}), "Another test");
+    EXPECT_EQ(test1.funcs[0]->body[2].toCall, test1.funcs[1]);
+    EXPECT_EQ(test1.funcs[1]->name, "Display sample data");
+
+//  TODO: Write test on arguments, something like this:
+//  ```
+//     std::vector<TooReadable::Value> emptyVec;
+//     EXPECT_EQ((std::string)test1.funcs[0]->body[3].args[0].evaluate(&emptyVec), "Sam");
+//  ```
 }
 
 /**
