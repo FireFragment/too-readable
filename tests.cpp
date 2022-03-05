@@ -302,6 +302,10 @@ TEST( value, from_literal ) {
     EXPECT_EQ(std::string(t), "-137");
 }
 
+/**
+ * @test expression Test if saving and reading literals from expressions works
+ *
+ */
 TEST( expression, literal ) {
     TooReadable::Expression e = TooReadable::Value("aa");
     EXPECT_EQ(e.type(), TooReadable::Expression::Literal);
@@ -309,9 +313,26 @@ TEST( expression, literal ) {
 }
 
 
+/**
+ * @test expression Test if saving and reading variables from expressions works
+ *
+ */
 TEST( expression, variable ) {
     TooReadable::Expression e = 3;
     std::vector<TooReadable::Value> vars = {123, 45, 887, 778, 56};
     EXPECT_EQ(e.type(), TooReadable::Expression::Variable);
     EXPECT_EQ(e.evaluate(&vars), 778);
+}
+
+/**
+ * @test expression Test if parsing expressions works
+ *
+ */
+TEST( expression, parse ) {
+    std::vector<std::string> varNames = {"My first variable", "Some second variable"};
+    std::vector<TooReadable::Value> vars = {123, 45};
+
+    TooReadable::Expression e = TooReadable::Expression::Parse("`Hello world`", varNames);
+    EXPECT_EQ(e.type(), TooReadable::Expression::Literal);
+    EXPECT_EQ((std::string)e.evaluate(&vars), "Hello world");
 }

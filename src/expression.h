@@ -55,6 +55,29 @@ public:
      * @param val The variable id
      */
     Expression(unsigned short int val) : value(val) {};
+
+    /**
+     * @brief Parse given expression
+     *
+     * @param code The expression in the code to be parsed
+     * @param vars Variable names in current scope ordered by ID
+     * @return     The parsed expression
+     */
+    static Expression Parse(std::string code, std::vector<std::string> vars);
+
+    struct InvalidExpression : Exception {
+        /**
+         * @brief The code causing the problem
+         *
+         */
+        std::string TheExpression;
+
+        InvalidExpression(std::string TheExpression) : TheExpression(TheExpression) {};
+
+        const std::string what() {
+            return "I don't know what is " + TheExpression + ".\nIf it's some concrete text wrap it in `s, so it would become `" + TheExpression + "`";
+        };
+    };
 private:
     /**
      * @brief The value.
