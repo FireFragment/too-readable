@@ -36,10 +36,11 @@ TooReadable::Value TooReadable::Value::FromLiteral(std::string literal)
     }
     
     // Number
-    else if (IsNum(literal))
+    try {
         return std::stoi(literal);
-    else
+    } catch (...) {
         throw BadLiteral(literal);
+    }
 }
 
 bool TooReadable::Value::IsNum(const std::string& s)

@@ -283,6 +283,25 @@ TEST( value, int_cast ) {
     EXPECT_EQ(std::string(t), "-137");
 }
 
+/**
+ * @test value Ensure, that conversion of literal to `Value` works properly
+ */
+TEST( value, from_literal ) {
+    TooReadable::Value t = TooReadable::Value::FromLiteral("12");
+    EXPECT_EQ(t, 12);
+
+    t = TooReadable::Value::FromLiteral("`My text`");
+    EXPECT_EQ((std::string)t, "My text");
+
+    EXPECT_THROW({
+        t = TooReadable::Value::FromLiteral("Haha invalid literal");
+    }, TooReadable::Value::BadLiteral);
+
+    t = "-137";
+    EXPECT_EQ(t, -137);
+    EXPECT_EQ(std::string(t), "-137");
+}
+
 TEST( expression, literal ) {
     TooReadable::Expression e = TooReadable::Value("aa");
     EXPECT_EQ(e.type(), TooReadable::Expression::Literal);
