@@ -6,6 +6,7 @@
 #include <vector>
 #include "divided.h"
 #include "../value.h"
+#include "../expression.h"
 
 namespace TooReadable::ParseStates {
 
@@ -33,16 +34,24 @@ public:
          */
         Step(const Divided::Step original, const Parsed* program);
         Function* toCall;
+        /**
+         * @brief The parent function.
+         *
+         * Step is part of its `parentFunc`
+         */
+        Function* parentFunc;
         
         /**
          * \brief Execute the step
+         *
+         * \param[in] argVals Values of arguments
          */
-        const void run();
+        const void run(const std::vector<Value>* argVals);
         
         /**
          * @brief Assigned arguments
          */
-        std::vector<Value> args;
+        std::vector<Expression> args;
     };
     
     /**

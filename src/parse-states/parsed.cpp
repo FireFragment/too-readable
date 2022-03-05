@@ -54,22 +54,29 @@ TooReadable::ParseStates::Parsed::Function* TooReadable::ParseStates::Parsed::Ge
     throw FuncNotDefined(name);
 }
 
-const void TooReadable::ParseStates::Parsed::Step::run() 
+const void TooReadable::ParseStates::Parsed::Step::run(const std::vector<Value>* argVals)
 {
-    toCall->run(args);
+    std::vector<Value> evaluatedArgs;
+    for (auto argument : args)
+        evaluatedArgs.push_back(argument.evaluate(argVals));
+    toCall->run(evaluatedArgs);
 }
 
 const void TooReadable::ParseStates::Parsed::UserDefinedFunc::run(std::vector<Value> args) 
 {
     for (Step step : body) {
-        step.run();
+        step.run(&args);
     }
 }
 
 TooReadable::ParseStates::Parsed::Step::Step(const Divided::Step original, const Parsed* program)
 {
-    // ----- The function -----
+    // ----- The function to call -----
     toCall = program->GetFuncNamed(original.funcName);
+
+    // ----- The parent function -----
+    parentFunc = program->GetFuncNamed(original.parentFunc);
+
     
     // ----- Out of line arguments -----
     args.reserve(toCall->outOfLineArgs.size());
@@ -79,9 +86,9 @@ TooReadable::ParseStates::Parsed::Step::Step(const Divided::Step original, const
     for (auto it = toCall->outOfLineArgs.begin(); it != toCall->outOfLineArgs.end(); it++) {
         // Copy values of arguments to corresponding indexes. 
         // Fining is needed, because in step, arguments may be listed in different order, than in the definition.
-        args.insert(args.begin() + i, Value::FromLiteral(std::find_if(original.outOfLineArgs.begin(), original.outOfLineArgs.end(), [it](Divided::Step::OutOfLineArgument arg) -> bool {
+        args.insert(args.begin() + i, Expression::Parse(std::find_if(original.outOfLineArgs.begin(), original.outOfLineArgs.end(), [it](Divided::Step::OutOfLineArgument arg) -> bool {
             return arg.name == *it;
-        })->value));
+        })->value, parentFunc->outOfLineArgs));
         i++;
     }
 }
