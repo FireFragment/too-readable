@@ -2,8 +2,10 @@
 
 using namespace TooReadable;
 
-const void TooReadable::BuiltinFunction::run(std::vector<Value> args) {
+const TooReadable::Value TooReadable::BuiltinFunction::run(std::vector< TooReadable::Value > args)
+{
     toRun(args);
+    return Value();
 }
 
 void TooReadable::BuiltinFuncs::HelloWorld(std::vector<Value> args) {

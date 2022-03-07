@@ -62,11 +62,12 @@ const void TooReadable::ParseStates::Parsed::Step::run(const std::vector<Value>*
     toCall->run(evaluatedArgs);
 }
 
-const void TooReadable::ParseStates::Parsed::UserDefinedFunc::run(std::vector<Value> args) 
+const TooReadable::Value TooReadable::ParseStates::Parsed::UserDefinedFunc::run(std::vector< TooReadable::Value > args)
 {
     for (Step step : body) {
         step.run(&args);
     }
+    return Value();
 }
 
 TooReadable::ParseStates::Parsed::Step::Step(const Divided::Step original, const Parsed* program)

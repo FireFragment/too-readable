@@ -69,8 +69,10 @@ public:
         
         /**
          * \brief Execute the function
+         *
+         * \returns Return value of the function.
          */
-        virtual const void run(std::vector<Value> args) = 0;
+        virtual const Value run(std::vector<Value> args) = 0;
         
         /**
          * \see Divided::Function::outOfLineArgs
@@ -91,7 +93,7 @@ public:
          */
         std::vector<Step> body;
         
-        const void run(std::vector<Value> args);
+        const Value run(std::vector<Value> args);
     };
     
     /**

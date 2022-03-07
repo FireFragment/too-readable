@@ -27,7 +27,7 @@ public:
     /**
      * \brief Run the function
      */    
-    const void run(std::vector<Value> args) override;
+    const Value run(std::vector<Value> args) override;
 };
 
 
