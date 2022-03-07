@@ -54,18 +54,24 @@ TooReadable::ParseStates::Parsed::Function* TooReadable::ParseStates::Parsed::Ge
     throw FuncNotDefined(name);
 }
 
-const void TooReadable::ParseStates::Parsed::Step::run(const std::vector<Value>* argVals)
+const TooReadable::Value TooReadable::ParseStates::Parsed::Step::run(const std::vector<Value>* argVals, const std::vector<Value>* returns)
 {
     std::vector<Value> evaluatedArgs;
     for (auto argument : args)
-        evaluatedArgs.push_back(argument.evaluate(argVals));
-    toCall->run(evaluatedArgs);
+        evaluatedArgs.push_back(argument.evaluate(argVals, returns));
+
+    return toCall->run(evaluatedArgs);
 }
 
 const TooReadable::Value TooReadable::ParseStates::Parsed::UserDefinedFunc::run(std::vector< TooReadable::Value > args)
 {
+    /**
+     Values returned from previously done steps.
+     Index 0 should corresponds to return value of first step.
+    */
+    std::vector<Value> returnedVals;
     for (Step step : body) {
-        step.run(&args);
+        returnedVals.push_back(step.run(&args, &returnedVals));
     }
     return Value();
 }

@@ -28,7 +28,12 @@ public:
          * @brief Variable or an arguent of parent function
          *
          */
-        Variable
+        Variable,
+        /**
+         * @brief Return value of another step
+         *
+         */
+        ReturnValue
     };
 
     /**
@@ -41,10 +46,12 @@ public:
     /**
      * @brief Calculate the value of expression
      *
-     * @param[in] vars Values of variables and arguments present in current scope
+     * @param[in] vars       Values of variables and arguments present in current scope
+     * @param[in] returnVals Values returned from previously done steps.
+     *                       Index 0 should correspond to return value of first step.
      * @return Calculated value of the expression
      */
-    Value evaluate(const std::vector<Value>* vars);
+    Value evaluate(const std::vector<Value>* vars, const std::vector<Value>* returnVals);
 
     Expression() {};
     /**
@@ -57,8 +64,9 @@ public:
      * @brief Create `Expression` containing variable.
      *
      * @param val The variable id
+     * @param isReturn Set to true, if the type is return value of another step
      */
-    Expression(unsigned short int val) : value(val) {};
+    Expression(unsigned short int val, bool isReturn) : value(val), isReturn(isReturn) {};
 
     /**
      * @brief Parse given expression
@@ -87,14 +95,21 @@ private:
      * @brief The value.
      *
      * The type of expression directly depends on type of this files
-     * | Contains           | Is                   |
-     * | ------------------ | -------------------- |
-     * | Value              | Literal              |
-     * | unsigned short int | Variable or argument |
+     * | Contains  | Is                                                        |
+     * | --------- | --------------------------------------------------------- |
+     * | Value     | Literal                                                   |
+     * | short int | Variable, argument or return value of another step        |
      *
      * This conversion does the `type()` function.
      */
-    std::variant<Value, unsigned short int> value;
+    std::variant<Value, short int> value;
+
+    /**
+     * @brief True, if the type is return value of another step
+     *
+     *Means something, only if `value` contains `short int`
+     */
+    bool isReturn = false;
 };
 
 }

@@ -45,8 +45,10 @@ public:
          * \brief Execute the step
          *
          * \param[in] argVals Values of arguments
+         * \param[in] returns Values returned from previously done steps.
+         *                    Index 0 should correspond to return value of first step.
          */
-        const void run(const std::vector<Value>* argVals);
+        const Value run(const std::vector<Value>* argVals, const std::vector<Value>* returns);
         
         /**
          * @brief Assigned arguments

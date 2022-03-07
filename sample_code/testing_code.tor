@@ -9,6 +9,13 @@ How to run the sample program
      - User's age: `36`
      - Current weather: `Sunny`
      - User's name: `Sam`
+ 4. Say something to user.
+     - The message to say: `WEATHER:`
+ 5. Let user write something.
+ 6. Say something to user.
+     - The message to say: `You are absolutely right! I strongly agree with following:`
+ 7. Say something to user.
+     - The message to say: Value we've got in step 5
 
 How to display sample data
 ==========================
