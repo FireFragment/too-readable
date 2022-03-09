@@ -33,11 +33,7 @@ public:
 
 namespace BuiltinFuncs
 {
-    Value HelloWorld(std::vector<Value> args);
-    Value Greet(std::vector<Value> args);
-    Value Advert(std::vector<Value> args);
     Value Echo(std::vector<Value> args);
-    Value Test(std::vector<Value> args);
     Value GetInput(std::vector<Value> args);
 
     #define BUILTIN_FUNC_BODY [](std::vector<Value> args) -> Value
@@ -46,11 +42,7 @@ namespace BuiltinFuncs
      * \brief List of all TooReadable builtin functions
      */
     const std::vector<BuiltinFunction*> list = {
-        new BuiltinFunction("Greet the world",          &HelloWorld), // Prints `Hello world` to the standart output.
-        new BuiltinFunction("Greet the user",           &Greet),      // Prints `Hello my friend` to the standart output.
-        new BuiltinFunction("Propagate TooReadable",    &Advert),      // Prints `TooReadable is the best!` to the standart output.
         new BuiltinFunction("Say something to user",    &Echo,      {"The message to say"}),
-        new BuiltinFunction("My testing function",      &Test,      {"First testing argument", "Second testing argument", "Third testing argument"}),
         new BuiltinFunction("Let user write something", &GetInput),
 
         new BuiltinFunction("Join two texts", BUILTIN_FUNC_BODY {
