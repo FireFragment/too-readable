@@ -53,6 +53,10 @@ namespace BuiltinFuncs
         new BuiltinFunction("My testing function",      &Test,      {"First testing argument", "Second testing argument", "Third testing argument"}),
         new BuiltinFunction("Let user write something", &GetInput),
 
+        new BuiltinFunction("Join two texts", BUILTIN_FUNC_BODY {
+            return (std::string)args[0] + (std::string)args[1];
+        }, {"First text", "Second text"}),
+
         new BuiltinFunction("Add two numbers", BUILTIN_FUNC_BODY {
             return (int)args[0] + (int)args[1];
         }, {"First number", "Second number"}),
