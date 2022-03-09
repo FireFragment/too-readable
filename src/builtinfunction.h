@@ -40,6 +40,8 @@ namespace BuiltinFuncs
     Value Test(std::vector<Value> args);
     Value GetInput(std::vector<Value> args);
 
+    #define BUILTIN_FUNC_BODY [](std::vector<Value> args) -> Value
+
     /**
      * \brief List of all TooReadable builtin functions
      */
@@ -49,7 +51,23 @@ namespace BuiltinFuncs
         new BuiltinFunction("Propagate TooReadable",    &Advert),      // Prints `TooReadable is the best!` to the standart output.
         new BuiltinFunction("Say something to user",    &Echo,      {"The message to say"}),
         new BuiltinFunction("My testing function",      &Test,      {"First testing argument", "Second testing argument", "Third testing argument"}),
-        new BuiltinFunction("Let user write something", &GetInput)
+        new BuiltinFunction("Let user write something", &GetInput),
+
+        new BuiltinFunction("Add two numbers", BUILTIN_FUNC_BODY {
+            return (int)args[0] + (int)args[1];
+        }, {"First number", "Second number"}),
+
+        new BuiltinFunction("Multilply two numbers", BUILTIN_FUNC_BODY {
+            return (int)args[0] * (int)args[1];
+        }, {"First number", "Second number"}),
+
+        new BuiltinFunction("Substract a number from another number", BUILTIN_FUNC_BODY {
+            return (int)args[0] + (int)args[1];
+        }, {"Minuend", "Subtrahend"}),
+
+        new BuiltinFunction("Divide a number", BUILTIN_FUNC_BODY {
+            return (int)args[0] / (int)args[1];
+        }, {"Dividend", "Divisor"})
     };
     
 }
