@@ -4,42 +4,47 @@ How to run the sample program
 =============================
 
  1. Greet the user.
- 2. Propagate TooReadable.
- 3. Display sample data.
-     - User's age: `36`
-     - Current weather: `Sunny`
-     - User's name: `Sam`
+     - User's name: `Tester`
+     - Weather: `Sunny`
+ 2. Say something to user.
+     - The message to say: `First number:`
+ 3. Let user write something.
  4. Say something to user.
-     - The message to say: `WEATHER:`
+     - The message to say: `Second number`
  5. Let user write something.
- 6. Say something to user.
-     - The message to say: `You are absolutely right! I strongly agree with following:`
+ 6. Add two numbers.
+     - First number: Value we've got in step 3
+     - Second number: Value we've got in step 5
  7. Say something to user.
-     - The message to say: Value we've got in step 5
+     - The message to say: `Result:`
+ 8. Say something to user.
+     - The message to say: Value we've got in step 6
 
-How to display sample data
-==========================
+How to greet the user
+=====================
 
 What do we need to know
 -----------------------
 
-To Display sample data, we need to also know theese values:
+To Greet the user, we need to also know theese values:
  - User's name
- - User's age
- - Current weather
+ - Weather
 
 Instructions
 ------------
 
- 1. Say something to user.
-     - The message to say: `YOUR NAME IS:`
+ 1. Join two texts.
+     - Second text: User's name
+     - First text: `Hi `
  2. Say something to user.
-     - The message to say: User's name
- 3. Say something to user.
-     - The message to say: `YOUR AGE IS:`
- 4. Say something to user.
-     - The message to say: User's age
+     - The message to say: Value we've got in step 1
+ 3. Join two texts.
+     - First text: `It's `
+     - Second text: Weather
+ 4. Join two texts.
+     - First text: Value we've got in step 3
+     - Second text: ` today.`
  5. Say something to user.
-     - The message to say: `WEATHER:`
+     - The message to say: Value we've got in step 4
  6. Say something to user.
-     - The message to say: Current weather
+     - The message to say: `This program lets you add two numbers.`
