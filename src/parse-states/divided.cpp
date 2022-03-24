@@ -50,23 +50,10 @@ TooReadable::ParseStates::Divided::Divided(Unparsed original)
         try {
             while (true) {
                 original.ContinueWith(" " + std::to_string(i) + ". "); // May throw exception
-                Step step(original.SkipTo(".\n"), func.name);
-                
-                // -------- Argument list ---------
-                
-                while (true) {
-                    std::string cntWth = original.ContinueWith("     - ", false);
-                    if (cntWth != "") // Check presence of bullet
-                        break;
-                    Step::OutOfLineArgument arg;
-                    arg.name = original.SkipTo(": ");
-                    arg.value = original.SkipTo("\n");
-                    step.outOfLineArgs.push_back(arg); // Add the argument to the step
-                }
                 
                 // ----- End of argument list -----
                 
-                func.steps.push_back(step);
+                func.steps.push_back(Step::fromCode(&original, func.name));
                 
                 i++;
             }
@@ -84,3 +71,21 @@ TooReadable::ParseStates::Divided::Divided(Unparsed original)
 }
 
 
+TooReadable::ParseStates::Divided::Step TooReadable::ParseStates::Divided::Step::fromCode(Unparsed* code, std::string _parentFunc)
+{
+    Step step(code->SkipTo(".\n"), _parentFunc);
+
+    // -------- Argument list ---------
+
+    while (true) {
+        std::string cntWth = code->ContinueWith("     - ", false);
+        if (cntWth != "") // Check presence of bullet
+            break;
+        Step::OutOfLineArgument arg;
+        arg.name = code->SkipTo(": ");
+        arg.value = code->SkipTo("\n");
+        step.outOfLineArgs.push_back(arg); // Add the argument to the step
+    }
+
+    return step;
+}

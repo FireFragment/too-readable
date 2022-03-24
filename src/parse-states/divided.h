@@ -18,6 +18,21 @@ public:
     class Step {
     public:
         Step(std::string funcName, std::string parentFunc) : funcName(funcName), parentFunc(parentFunc) {};
+
+        /**
+         * @brief Parse TOR code and generate `Divided::Step`
+         *
+         * @param code Code, that is currently at the line that represents the step, but after this line's indentation eg.
+         *             ```cpp
+         *             Add two numbers.
+         *                  - First number: 10
+         *                  - Second number: 42
+         *             ```
+         *             First line shouldn't be indented nor preceeded by step number, whereas argument list should be intended as in code.
+         *             If it's condition, conditional function call should be included and indented as in code (intended with 4 spaces).
+         * @return The divided step
+         */
+        static Step fromCode(Unparsed* code, std::string _parentFunc);
         
         bool operator== (Step rhs) const {
             return (rhs.funcName == funcName) && (rhs.outOfLineArgs == outOfLineArgs) && (rhs.parentFunc == parentFunc);
