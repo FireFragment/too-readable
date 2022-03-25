@@ -18,7 +18,8 @@ TooReadable::ParseStates::Parsed::Parsed(Divided original)
     // Iterate through `original.functions` and `funcs` at once.
     std::vector<UserDefinedFunc*>::iterator thisFunc = funcs.begin();
     for (Divided::Function func : original.functions) { // For each user-defined function in the program.
-        std::vector<Step> steps; // Steps of `func`
+        /** Steps of `func` */
+        std::vector<Step> steps;
         
         // Parse each step
         
