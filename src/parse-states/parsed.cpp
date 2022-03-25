@@ -84,7 +84,6 @@ TooReadable::ParseStates::Parsed::Step::Step(const Divided::Step original, const
 
     // ----- The parent function -----
     parentFunc = program->GetFuncNamed(original.parentFunc);
-
     
     // ----- Out of line arguments -----
     args.reserve(toCall->outOfLineArgs.size());
