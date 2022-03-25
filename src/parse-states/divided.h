@@ -73,6 +73,37 @@ public:
          * @brief Out-of-line arguments passed to the function
          */
         std::vector<OutOfLineArgument> outOfLineArgs;
+
+        /**
+         * @brief If this step is condition, this is the command ran, if the condition fullfiled
+         *
+         * If it's `NULL`, this step is not condition, @see ::isCondition.
+         *
+         * FIXME: Deeply copy
+         */
+        Step* conditionalCommand = NULL;
+
+        /**
+         * @brief Check, whether this step is condition
+         *
+         * @return True, if the step is condition, false if it isn't
+         */
+        inline bool isCondition() const {
+            return conditionalCommand == NULL;
+        }
+
+        Step(const Step& original) {
+            outOfLineArgs = original.outOfLineArgs;
+            parentFunc = original.parentFunc;
+            funcName = original.funcName;
+            if (conditionalCommand != NULL)
+                conditionalCommand = new Step(*original.conditionalCommand);
+        }
+
+        ~Step() {
+            if (conditionalCommand != NULL)
+                delete conditionalCommand;
+        }
     };
     
     /**

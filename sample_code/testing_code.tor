@@ -6,7 +6,9 @@ How to run the sample program
  1. Greet the user.
      - User's name: `Tester`
      - Weather: `Sunny`
- 2. Say something to user.
+ 2. Check, if Say something to user.
+     - The message to say: `First number:`
+    Say something to user.
      - The message to say: `First number:`
  3. Let user write something.
  4. Say something to user.

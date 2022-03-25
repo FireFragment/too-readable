@@ -73,6 +73,8 @@ TooReadable::ParseStates::Divided::Divided(Unparsed original)
 
 TooReadable::ParseStates::Divided::Step TooReadable::ParseStates::Divided::Step::fromCode(Unparsed* code, std::string _parentFunc)
 {
+    /** True if the step is condition */
+    bool isCond = code->ContinueWith("Check, if ", false) == "";
     Step step(code->SkipTo(".\n"), _parentFunc);
 
     // -------- Argument list ---------
@@ -85,6 +87,11 @@ TooReadable::ParseStates::Divided::Step TooReadable::ParseStates::Divided::Step:
         arg.name = code->SkipTo(": ");
         arg.value = code->SkipTo("\n");
         step.outOfLineArgs.push_back(arg); // Add the argument to the step
+    }
+
+    if (isCond) {
+        code->ContinueWith("    ");
+        step.conditionalCommand = new Step(fromCode(code, _parentFunc));
     }
 
     return step;

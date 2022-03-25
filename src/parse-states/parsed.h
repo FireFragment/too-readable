@@ -40,6 +40,12 @@ public:
          * Step is part of its `parentFunc`
          */
         Function* parentFunc;
+
+        /**
+         * @see Divided::Step
+         *
+         */
+        Step* conditionalCommand = NULL;
         
         /**
          * \brief Execute the step
@@ -54,6 +60,11 @@ public:
          * @brief Assigned arguments
          */
         std::vector<Expression> args;
+
+        Step(const Step& original): toCall(original.toCall), parentFunc(original.parentFunc), args(original.args) {
+            if (conditionalCommand != NULL)
+                conditionalCommand = new Step(*original.conditionalCommand);
+        }
     };
     
     /**
