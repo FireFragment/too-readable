@@ -50,7 +50,7 @@ public:
         /**
          * \brief Execute the step
          *
-         * \param[in] argVals Values of arguments
+         * \param[in] argVals Values of arguments of parent function
          * \param[in] returns Values returned from previously done steps.
          *                    Index 0 should correspond to return value of first step.
          */
@@ -62,8 +62,12 @@ public:
         std::vector<Expression> args;
 
         Step(const Step& original): toCall(original.toCall), parentFunc(original.parentFunc), args(original.args) {
-            if (conditionalCommand != NULL)
+            if (original.conditionalCommand != NULL)
                 conditionalCommand = new Step(*original.conditionalCommand);
+        }
+
+        inline bool isCondition() const {
+            return conditionalCommand != NULL;
         }
     };
     

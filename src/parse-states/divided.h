@@ -33,7 +33,7 @@ public:
          * @return The divided step
          */
         static Step fromCode(Unparsed* code, std::string _parentFunc);
-        
+
         bool operator== (Step rhs) const {
             return (rhs.funcName == funcName) && (rhs.outOfLineArgs == outOfLineArgs) && (rhs.parentFunc == parentFunc);
         };
@@ -96,7 +96,7 @@ public:
             outOfLineArgs = original.outOfLineArgs;
             parentFunc = original.parentFunc;
             funcName = original.funcName;
-            if (conditionalCommand != NULL)
+            if (original.conditionalCommand != NULL)
                 conditionalCommand = new Step(*original.conditionalCommand);
         }
 

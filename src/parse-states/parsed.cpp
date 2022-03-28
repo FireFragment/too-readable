@@ -61,6 +61,11 @@ const TooReadable::Value TooReadable::ParseStates::Parsed::Step::run(const std::
     for (auto argument : args)
         evaluatedArgs.push_back(argument.evaluate(argVals, returns));
 
+    // Do not execute the function if it has condition which isn't fullfilled
+    if (isCondition()) {
+        if (bool(toCall->run(evaluatedArgs)))
+            return conditionalCommand->run(argVals, returns);
+    }
     return toCall->run(evaluatedArgs);
 }
 
@@ -84,10 +89,15 @@ TooReadable::ParseStates::Parsed::Step::Step(const Divided::Step original, const
 
     // ----- The parent function -----
     parentFunc = program->GetFuncNamed(original.parentFunc);
+
+    // ----- Conditional fuunction -----
+
+    if (original.conditionalCommand != NULL)
+        conditionalCommand = new Parsed::Step(*original.conditionalCommand, program);
     
     // ----- Out of line arguments -----
     args.reserve(toCall->outOfLineArgs.size());
-    
+
     // The index of following loop
     unsigned int i = 0;
     for (auto it = toCall->outOfLineArgs.begin(); it != toCall->outOfLineArgs.end(); it++) {
