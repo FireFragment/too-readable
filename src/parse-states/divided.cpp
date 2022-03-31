@@ -7,7 +7,6 @@ TooReadable::ParseStates::Divided::Divided(Unparsed original)
     try {
         original.ContinueWith("Please ") == ""; 
         mainFunc = original.SkipTo(".\n\n");
-        mainFunc[0] = toupper(mainFunc[0]); 
     } catch (Unparsed::ArgNotFoundException err) {}
     
     // Functions
@@ -18,7 +17,7 @@ TooReadable::ParseStates::Divided::Divided(Unparsed original)
         
         Function func;
         func.name = original.SkipTo("\n");
-        func.name[0] = toupper(func.name[0]); // Capitalize the first letter of the function name.
+        //func.name[0] = toupper(func.name[0]); // Capitalize the first letter of the function name.
         
         // Underline of the header
         // TODO: Replace `7` with something more clear (it's length of "How to ")
@@ -71,11 +70,17 @@ TooReadable::ParseStates::Divided::Divided(Unparsed original)
 }
 
 
-TooReadable::ParseStates::Divided::Step TooReadable::ParseStates::Divided::Step::fromCode(Unparsed* code, std::string _parentFunc)
+TooReadable::ParseStates::Divided::Step TooReadable::ParseStates::Divided::Step::fromCode(Unparsed* code, std::string _parentFunc, bool enforceCapital)
 {
     /** True if the step is condition */
     bool isCond = code->ContinueWith("Check, if ", false) == "";
     Step step(code->SkipTo(".\n"), _parentFunc);
+
+    if (std::islower(step.funcName[0]) && enforceCapital && !isCond) {
+        throw LowLetterAtBegginingOfStep(step.funcName);
+    }
+
+    step.funcName[0] = std::tolower(step.funcName[0]); // Decapitalize the first letter
 
     // -------- Argument list ---------
 
@@ -91,7 +96,7 @@ TooReadable::ParseStates::Divided::Step TooReadable::ParseStates::Divided::Step:
 
     if (isCond) {
         code->ContinueWith("    If so, ");
-        step.conditionalCommand = new Step(fromCode(code, _parentFunc));
+        step.conditionalCommand = new Step(fromCode(code, _parentFunc, false));
     }
 
     return step;

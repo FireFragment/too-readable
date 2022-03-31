@@ -42,30 +42,30 @@ namespace BuiltinFuncs
      * \brief List of all TooReadable builtin functions
      */
     const std::vector<BuiltinFunction*> list = {
-        new BuiltinFunction("Say something to user",    &Echo,      {"The message to say"}),
-        new BuiltinFunction("Let user write something", &GetInput),
+        new BuiltinFunction("say something to user",    &Echo,      {"The message to say"}),
+        new BuiltinFunction("let user write something", &GetInput),
 
-        new BuiltinFunction("Join two texts", BUILTIN_FUNC_BODY {
+        new BuiltinFunction("join two texts", BUILTIN_FUNC_BODY {
             return (std::string)args[0] + (std::string)args[1];
         }, {"First text", "Second text"}),
 
-        new BuiltinFunction("Add two numbers", BUILTIN_FUNC_BODY {
+        new BuiltinFunction("add two numbers", BUILTIN_FUNC_BODY {
             return (int)args[0] + (int)args[1];
         }, {"First number", "Second number"}),
 
-        new BuiltinFunction("Multilply two numbers", BUILTIN_FUNC_BODY {
+        new BuiltinFunction("multilply two numbers", BUILTIN_FUNC_BODY {
             return (int)args[0] * (int)args[1];
         }, {"First number", "Second number"}),
 
-        new BuiltinFunction("Substract a number from another number", BUILTIN_FUNC_BODY {
+        new BuiltinFunction("substract a number from another number", BUILTIN_FUNC_BODY {
             return (int)args[0] + (int)args[1];
         }, {"Minuend", "Subtrahend"}),
 
-        new BuiltinFunction("Divide a number", BUILTIN_FUNC_BODY {
+        new BuiltinFunction("divide a number", BUILTIN_FUNC_BODY {
             return (int)args[0] / (int)args[1];
         }, {"Dividend", "Divisor"}),
 
-        new BuiltinFunction("Following values are equal", BUILTIN_FUNC_BODY {
+        new BuiltinFunction("following values are equal", BUILTIN_FUNC_BODY {
             return Value((std::string)args[0] == (std::string)args[1]);
         }, {"First value", "Second value"}),
     };

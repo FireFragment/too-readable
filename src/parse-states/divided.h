@@ -13,6 +13,20 @@ class Divided
 {
 public:
     /**
+     * @brief Thrown when step has lowercase letter at the beggining
+     *
+     */
+    class LowLetterAtBegginingOfStep : public Exception {
+    public:
+        LowLetterAtBegginingOfStep(std::string funcName): funcName(funcName) {};
+
+        std::string funcName;
+        const std::string what() override {
+            return "Sentences starts with capital letter, but you wrote `" + funcName + "`, which starts with lowercase letter.\nTry changing it to `" + (char)toupper(funcName[0]) + funcName.substr(1) + "`";
+        };
+    };
+
+    /**
      * \brief \c Function call
      */
     class Step {
@@ -30,9 +44,10 @@ public:
          *             ```
          *             First line shouldn't be indented nor preceeded by step number, whereas argument list should be intended as in code.
          *             If it's condition, conditional function call should be included and indented as in code (intended with 4 spaces).
+         * @param enforceCapital If true, throws exception when function name isn't capitalized.
          * @return The divided step
          */
-        static Step fromCode(Unparsed* code, std::string _parentFunc);
+        static Step fromCode(Unparsed* code, std::string _parentFunc, bool enforceCapital = true);
 
         bool operator== (Step rhs) const {
             return (rhs.funcName == funcName) && (rhs.outOfLineArgs == outOfLineArgs) && (rhs.parentFunc == parentFunc);
