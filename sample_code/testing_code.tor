@@ -22,7 +22,7 @@ How to run the sample program
  9. Check, if Following values are equal.
      - First value: Value we've got in step 3
      - Second value: Value we've got in step 5
-    Say something to user.
+    If so, Say something to user.
      - The message to say: `Fun fact - both of numbers you entered are equal!`
 
 How to greet the user
