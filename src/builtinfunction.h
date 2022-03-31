@@ -65,16 +65,9 @@ namespace BuiltinFuncs
             return (int)args[0] / (int)args[1];
         }, {"Dividend", "Divisor"}),
 
-        new BuiltinFunction("True", BUILTIN_FUNC_BODY {
-            return "Yes";
-        }, {}),
-        new BuiltinFunction("False", BUILTIN_FUNC_BODY {
-            return "No";
-        }, {}),
-
-        new BuiltinFunction("Compare", BUILTIN_FUNC_BODY {
+        new BuiltinFunction("Following values are equal", BUILTIN_FUNC_BODY {
             return Value((std::string)args[0] == (std::string)args[1]);
-        }, {"First", "Second"})
+        }, {"First value", "Second value"}),
     };
 
 }

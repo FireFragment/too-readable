@@ -90,7 +90,7 @@ TooReadable::ParseStates::Divided::Step TooReadable::ParseStates::Divided::Step:
     }
 
     if (isCond) {
-        code->ContinueWith("    ");
+        code->ContinueWith("    If so, ");
         step.conditionalCommand = new Step(fromCode(code, _parentFunc));
     }
 
