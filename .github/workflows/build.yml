@@ -21,6 +21,6 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Executable (${{ matrix.os }})
-        path: build/too-readable
+        path: build/tooreadable
     - name: Run tests
       run: ./tests
