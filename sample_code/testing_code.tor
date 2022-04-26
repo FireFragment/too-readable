@@ -19,10 +19,10 @@ How to run the sample program
      - The message to say: `Result:`
  8. Say something to user.
      - The message to say: Value we've got in step 6
- 9. Check, if Following values are equal.
+ 9. Check, if following values are equal.
      - First value: Value we've got in step 3
      - Second value: Value we've got in step 5
-    If so, Say something to user.
+    If so, say something to user.
      - The message to say: `Fun fact - both of numbers you entered are equal!`
 
 How to greet the user
@@ -31,7 +31,7 @@ How to greet the user
 What do we need to know
 -----------------------
 
-To Greet the user, we need to also know theese values:
+To greet the user, we need to also know theese values:
  - User's name
  - Weather
 
