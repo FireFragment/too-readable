@@ -12,8 +12,6 @@ namespace TooReadable {
  * 
  * Expressions in TooReadable are very simple - it can be just reading variable or literal, nothing else.
  * No operators, no function calls and using their return value.
- *
- * TODO: Support `Value we've got from previous step`
  */
 class Expression
 {
