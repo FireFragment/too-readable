@@ -30,7 +30,7 @@ TooReadable::Expression TooReadable::Expression::Parse(std::string code, std::ve
     Expression retVal;
 
     if (code.rfind("Value we've got in step ", 0) == 0) { // It's return value of another step
-        retVal.value = std::stoi(code.substr(24)) - 1; // Substracting 1, because C++ counts from 0, but TooReadable from 1 (`Step 1` is at index 0)
+        retVal.value = std::stoi(code.substr(24)) - 1; // Substracting 1 from number of step, because C++ counts from 0, but TooReadable from 1 (`Step 1` is at index 0)
         retVal.isReturn = true;
         return retVal;
     }
