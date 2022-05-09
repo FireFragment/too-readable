@@ -50,24 +50,28 @@ namespace BuiltinFuncs
         }, {"First text", "Second text"}),
 
         new BuiltinFunction("add two numbers", BUILTIN_FUNC_BODY {
-            return (int)args[0] + (int)args[1];
+            return (float)args[0] + (float)args[1];
         }, {"First number", "Second number"}),
 
-        new BuiltinFunction("multilply two numbers", BUILTIN_FUNC_BODY {
-            return (int)args[0] * (int)args[1];
+        new BuiltinFunction("multiply two numbers", BUILTIN_FUNC_BODY {
+            return (float)args[0] * (float)args[1];
         }, {"First number", "Second number"}),
 
         new BuiltinFunction("substract a number from another number", BUILTIN_FUNC_BODY {
-            return (int)args[0] + (int)args[1];
+            return (float)args[0] + (float)args[1];
         }, {"Minuend", "Subtrahend"}),
 
         new BuiltinFunction("divide a number", BUILTIN_FUNC_BODY {
-            return (int)args[0] / (int)args[1];
+            return (float)args[0] / (float)args[1];
         }, {"Dividend", "Divisor"}),
 
         new BuiltinFunction("following values are equal", BUILTIN_FUNC_BODY {
             return Value((std::string)args[0] == (std::string)args[1]);
         }, {"First value", "Second value"}),
+
+        new BuiltinFunction("first number is bigger then second", BUILTIN_FUNC_BODY {
+            return (float)args[0] > (float)args[1];
+        }, {"First number", "Second number"})
     };
 
 }

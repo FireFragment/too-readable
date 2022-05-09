@@ -282,11 +282,11 @@ TEST( value, bool_cast ) {
 TEST( value, int_cast ) {
     TooReadable::Value t;
     t = 123;
-    EXPECT_EQ(t, 123);
+    EXPECT_EQ((float)t, 123);
     EXPECT_EQ(std::string(t), "123");
     
     t = "-137";
-    EXPECT_EQ(t, -137);
+    EXPECT_EQ((float)t, -137);
     EXPECT_EQ(std::string(t), "-137");
 }
 
@@ -295,7 +295,7 @@ TEST( value, int_cast ) {
  */
 TEST( value, from_literal ) {
     TooReadable::Value t = TooReadable::Value::FromLiteral("12");
-    EXPECT_EQ(t, 12);
+    EXPECT_EQ((float)t, 12);
 
     t = TooReadable::Value::FromLiteral("`My text`");
     EXPECT_EQ((std::string)t, "My text");
@@ -305,7 +305,7 @@ TEST( value, from_literal ) {
     }, TooReadable::Value::BadLiteral);
 
     t = "-137";
-    EXPECT_EQ(t, -137);
+    EXPECT_EQ((float)t, -137);
     EXPECT_EQ(std::string(t), "-137");
 }
 
@@ -328,7 +328,7 @@ TEST( expression, variable ) {
     TooReadable::Expression e(3, false);
     std::vector<TooReadable::Value> vars = {123, 45, 887, 778, 56};
     EXPECT_EQ(e.type(), TooReadable::Expression::Variable);
-    EXPECT_EQ(e.evaluate(&vars, {}), 778);
+    EXPECT_EQ((float)e.evaluate(&vars, {}), 778);
 }
 
 /**
@@ -339,7 +339,7 @@ TEST( expression, return_value) {
     TooReadable::Expression e(3, true);
     std::vector<TooReadable::Value> retVals = {123, 45, 887, 778, 56};
     EXPECT_EQ(e.type(), TooReadable::Expression::ReturnValue);
-    EXPECT_EQ(e.evaluate({}, &retVals), 778);
+    EXPECT_EQ((float)e.evaluate({}, &retVals), 778);
 }
 
 /**

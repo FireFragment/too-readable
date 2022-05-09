@@ -53,7 +53,7 @@ public:
     
     // Casts
     operator std::string() const { return val; }
-    operator int()         const { return std::stoi(val); } // TODO: Throw exception when `val` isn't number
+    operator float()       const { return std::stoi(val); } // TODO: Throw exception when `val` isn't number
     /**
      * @brief Converts the value to `bool`
      * 
@@ -74,7 +74,12 @@ public:
     
     Value(const std::string _val) { val = _val; };
     Value(const char* _val) { val = _val; };
-    Value(const int _val) { val = std::to_string(_val); };
+    Value(const float _val) {
+        val = std::to_string(_val);
+        val.erase ( val.find_last_not_of('0') + 1, std::string::npos ); // Remove trailing zeros
+        if (val.back() == '.') val.pop_back(); // Remove potential trailing dot
+    };
+    Value(const int _val)   { val = std::to_string(_val); };
     Value(const bool _val);
     Value() {};
     

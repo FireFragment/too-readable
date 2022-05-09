@@ -55,8 +55,16 @@ TooReadable::ParseStates::Parsed::Function* TooReadable::ParseStates::Parsed::Ge
     throw FuncNotDefined(name);
 }
 
-const TooReadable::Value TooReadable::ParseStates::Parsed::Step::run(const std::vector<Value>* argVals, const std::vector<Value>* returns)
+const TooReadable::Value TooReadable::ParseStates::Parsed::Step::run(const std::vector<Value>* argVals, const std::vector<Value>* returns, int* gotoStep)
 {
+    // Handle goto statements
+    if (isGoto()) {
+        *gotoStep = gotoDestination;
+        return "";
+    }
+    *gotoStep = -1;
+
+    // Handle normal steps
     std::vector<Value> evaluatedArgs;
     for (auto argument : args)
         evaluatedArgs.push_back(argument.evaluate(argVals, returns));
@@ -64,7 +72,9 @@ const TooReadable::Value TooReadable::ParseStates::Parsed::Step::run(const std::
     // Do not execute the function if it has condition which isn't fullfilled
     if (isCondition()) {
         if (bool(toCall->run(evaluatedArgs)))
-            return conditionalCommand->run(argVals, returns);
+            return conditionalCommand->run(argVals, returns, gotoStep);
+        else
+            return Value();
     }
     return toCall->run(evaluatedArgs);
 }
@@ -75,15 +85,25 @@ const TooReadable::Value TooReadable::ParseStates::Parsed::UserDefinedFunc::run(
      Values returned from previously done steps.
      Index 0 should corresponds to return value of first step.
     */
-    std::vector<Value> returnedVals;
-    for (Step step : body) {
-        returnedVals.push_back(step.run(&args, &returnedVals));
+    std::vector<Value> returnedVals(body.size());
+    for (auto it = body.begin(); it != body.end(); /** We don't increment iterator here, because of goto statements */) {
+        /** Number of step to go to */
+        int gotoStep;
+        returnedVals[it - body.begin()] = it->run(&args, &returnedVals, &gotoStep); // Run the command and save its return value
+        if (gotoStep == -1)
+            it++; // We don't increment iterator in for loop, we have to do it here
+        else
+            it = body.begin() + gotoStep;
     }
     return Value();
 }
 
 TooReadable::ParseStates::Parsed::Step::Step(const Divided::Step original, const Parsed* program)
 {
+    if (original.funcName.rfind("go to step ", 0) == 0) { // It's goto statement
+        makeGoto(std::stoi(original.funcName.substr(11)) - 1);
+        return;
+    }
     // ----- The function to call -----
     toCall = program->GetFuncNamed(original.funcName);
 

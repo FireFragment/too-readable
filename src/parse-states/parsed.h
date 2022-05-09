@@ -33,7 +33,35 @@ public:
          * Used to get pointer to function.
          */
         Step(const Divided::Step original, const Parsed* program);
+        /**
+         * @brief The function to call.
+         *
+         * If it's NULL, this step is goto statement
+         */
         Function* toCall;
+
+        /**
+         * @brief If this is goto statement, this value is number of step to skip to.
+         * Has effect only if toCall is NULL
+         */
+        unsigned int gotoDestination;
+
+        /**
+         * @return If the step is goto statement
+         */
+        inline constexpr bool isGoto() {
+            return toCall == NULL;
+        }
+
+        /**
+         * @brief Makes the step goto statement
+         *
+         * @param destination Number of step to go to
+         */
+        inline void makeGoto(unsigned int destination) {
+            gotoDestination = destination;
+            toCall = NULL;
+        }
         /**
          * @brief The parent function.
          *
@@ -46,22 +74,24 @@ public:
          *
          */
         Step* conditionalCommand = NULL;
-        
+
         /**
          * \brief Execute the step
          *
          * \param[in] argVals Values of arguments of parent function
          * \param[in] returns Values returned from previously done steps.
          *                    Index 0 should correspond to return value of first step.
+         * \param[out] gotoStep Number of step to go to. If it's -1, continue to next step.
+         *                      Don't forget to delete this value after reading it.
          */
-        const Value run(const std::vector<Value>* argVals, const std::vector<Value>* returns);
+        const Value run(const std::vector<Value>* argVals, const std::vector<Value>* returns, int* gotoStep);
         
         /**
          * @brief Assigned arguments
          */
         std::vector<Expression> args;
 
-        Step(const Step& original): toCall(original.toCall), parentFunc(original.parentFunc), args(original.args) {
+        Step(const Step& original): toCall(original.toCall), parentFunc(original.parentFunc), args(original.args), gotoDestination(original.gotoDestination) {
             if (original.conditionalCommand != NULL)
                 conditionalCommand = new Step(*original.conditionalCommand);
         }

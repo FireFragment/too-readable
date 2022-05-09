@@ -10,7 +10,7 @@ How to run the sample program
      - The message to say: `First number:`
  3. Let user write something.
  4. Say something to user.
-     - The message to say: `Second number`
+     - The message to say: `Second number:`
  5. Let user write something.
  6. Add two numbers.
      - First number: Value we've got in step 3
@@ -24,6 +24,15 @@ How to run the sample program
      - Second value: Value we've got in step 5
     If so, say something to user.
      - The message to say: `Fun fact - both of numbers you entered are equal!`
+ 10. Say something to user.
+     - The message to say: `Would you like to try it agin (respond "yes" or "no")?`
+ 11. Let user write something.
+ 12. Check, if following values are equal.
+     - First value: Value we've got in step 11
+     - Second value: `yes`
+    If so, go to step 2.
+ 13. Say something to user.
+     - The message to say: `OK, so goodbye!`
 
 How to greet the user
 =====================

@@ -37,7 +37,7 @@ TooReadable::Value TooReadable::Value::FromLiteral(std::string literal)
     
     // Number
     try {
-        return std::stoi(literal);
+        return std::stof(literal);
     } catch (...) {
         throw BadLiteral(literal);
     }
