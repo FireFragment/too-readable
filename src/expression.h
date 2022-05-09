@@ -107,7 +107,7 @@ private:
     /**
      * @brief True, if the type is return value of another step
      *
-     *Means something, only if `value` contains `short int`
+     * Means something, only if `value` contains `short int`
      */
     bool isReturn = false;
 };
