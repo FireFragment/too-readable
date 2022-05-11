@@ -58,7 +58,7 @@ namespace BuiltinFuncs
         }, {"First number", "Second number"}),
 
         new BuiltinFunction("substract a number from another number", BUILTIN_FUNC_BODY {
-            return (float)args[0] + (float)args[1];
+            return (float)args[0] - (float)args[1];
         }, {"Minuend", "Subtrahend"}),
 
         new BuiltinFunction("divide a number", BUILTIN_FUNC_BODY {
