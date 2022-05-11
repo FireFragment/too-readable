@@ -166,13 +166,13 @@ TEST ( divided, program )
     } catch (TooReadable::ParseStates::Unparsed::ArgNotFoundException err) {
         std::cout << err.what();
     }
-    EXPECT_EQ(test1.mainFunc, "Run the sample program");
+    EXPECT_EQ(test1.mainFunc, "run the sample program");
     
     // ----- Run the sample program -----
-    EXPECT_EQ(test1.functions[0].name, "Run the sample program");
-    EXPECT_EQ(test1.functions[0].steps[0].funcName, "Greet the user");
+    EXPECT_EQ(test1.functions[0].name, "run the sample program");
+    EXPECT_EQ(test1.functions[0].steps[0].funcName, "greet the user");
     EXPECT_EQ(test1.functions[0].steps[0].parentFunc, test1.functions[0].name);
-    EXPECT_EQ(test1.functions[0].steps[1].funcName, "Say something to user");
+    EXPECT_EQ(test1.functions[0].steps[1].funcName, "say something to user");
     EXPECT_EQ(test1.functions[0].steps[1].parentFunc, test1.functions[0].name);
     
     // In the testing program, arguments are listed in wrong order (it should be allowed)
@@ -186,7 +186,7 @@ TEST ( divided, program )
     EXPECT_EQ(test1.functions[1].outOfLineArgs.size(), 2);
 
     // ----- Greet the user -----
-    EXPECT_EQ(test1.functions[1].name, "Greet the user");
+    EXPECT_EQ(test1.functions[1].name, "greet the user");
     
     EXPECT_EQ(test1.functions[1].outOfLineArgs, std::vector<std::string>({ "User's name", "Weather" }));
 }
@@ -200,19 +200,19 @@ TEST ( parsed_constructor, program )
     EXPECT_EQ(test1.mainFunc, test1.funcs[0]); // The main function is correct
     
     // Check names of functions
-    EXPECT_EQ(test1.funcs[0]->name, "Run the sample program");
-    EXPECT_EQ(test1.funcs[1]->name, "Greet the user");
+    EXPECT_EQ(test1.funcs[0]->name, "run the sample program");
+    EXPECT_EQ(test1.funcs[1]->name, "greet the user");
     
     // Check bodies of functions (not full, I'm too lazy to write test for the entire program)
-    EXPECT_EQ(test1.funcs[0]->body[0].toCall->name, "Greet the user");
+    EXPECT_EQ(test1.funcs[0]->body[0].toCall->name, "greet the user");
     EXPECT_EQ(test1.funcs[0]->body[0].toCall, test1.funcs[1]);
-    EXPECT_EQ(test1.funcs[0]->body[1].toCall->name, "Say something to user");
-    EXPECT_EQ(test1.funcs[0]->body[2].toCall->name, "Let user write something");
+    EXPECT_EQ(test1.funcs[0]->body[1].toCall->name, "say something to user");
+    EXPECT_EQ(test1.funcs[0]->body[2].toCall->name, "let user write something");
 
-    EXPECT_EQ(test1.funcs[1]->body[0].toCall->name, "Join two texts");
-    EXPECT_EQ(test1.funcs[1]->body[2].toCall->name, "Join two texts");
-    EXPECT_EQ(test1.funcs[1]->body[3].toCall->name, "Join two texts");
-    EXPECT_EQ(test1.funcs[1]->body[1].toCall->name, "Say something to user");
+    EXPECT_EQ(test1.funcs[1]->body[0].toCall->name, "join two texts");
+    EXPECT_EQ(test1.funcs[1]->body[2].toCall->name, "join two texts");
+    EXPECT_EQ(test1.funcs[1]->body[3].toCall->name, "join two texts");
+    EXPECT_EQ(test1.funcs[1]->body[1].toCall->name, "say something to user");
 
 //  TODO: Write test on arguments, something like this:
 //  ```
