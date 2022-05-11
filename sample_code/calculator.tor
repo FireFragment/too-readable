@@ -1,0 +1,71 @@
+Please run calculator.
+
+How to run calculator
+=====================
+
+ > NOTE: Here we'll get information from user
+ 1. Say something to user.
+     - The message to say: `=== CALCULATOR ===`
+ 2. Say something to user.
+     - The message to say: `First number:`
+ 3. Let user write something.
+ 4. Say something to user.
+     - The message to say: `Second number:`
+ 5. Let user write something.
+ 6. Say something to user.
+     - The message to say: `Operation:`
+ 7. Let user write something.
+ > NOTE: Steps 8 - 11 checks operation we want to do
+ 8. Check, if following values are equal.
+     - First value: Value we've got in step 7
+     - Second value: `+`
+    If so, go to step 14.
+ 9. Check, if following values are equal.
+     - First value: Value we've got in step 7
+     - Second value: `-`
+    If so, go to step 18.
+ 10. Check, if following values are equal.
+     - First value: Value we've got in step 7
+     - Second value: `*`
+    If so, go to step 22.
+ 11. Check, if following values are equal.
+     - First value: Value we've got in step 7
+     - Second value: `/`
+    If so, go to step 26.
+ 12. Say something to user.
+     - The message to say: `Unknown operation - enter one of theese symbols: +-*/`
+ 13. Go to step 7.
+ > NOTE: Here are the calculations
+ 14. Say something to user.
+     - The message to say: `Result:`
+ 15. Add two numbers.
+     - First number: Value we've got in step 3
+     - Second number: Value we've got in step 5
+ 16. Say something to user.
+     - The message to say: Value we've got in step 15
+ 17. Go to step 29.
+ 18. Say something to user.
+     - The message to say: `Result:`
+ 19. Substract a number from another number.
+     - Minuend: Value we've got in step 3
+     - Subtrahend: Value we've got in step 5
+ 20. Say something to user.
+     - The message to say: Value we've got in step 19
+ 21. Go to step 29.
+ 22. Say something to user.
+     - The message to say: `Result:`
+ 23. Multiply two numbers.
+     - First number: Value we've got in step 3
+     - Second number: Value we've got in step 5
+ 24. Say something to user.
+     - The message to say: Value we've got in step 23
+ 25. Go to step 29.
+ 26. Say something to user.
+     - The message to say: `Result:`
+ 27. Divide a number.
+     - Dividend: Value we've got in step 3
+     - Divisor: Value we've got in step 5
+ 28. Say something to user.
+     - The message to say: Value we've got in step 27
+ 29. Say something to user.
+     - The message to say: `Goodbye`
