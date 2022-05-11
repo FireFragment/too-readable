@@ -13,7 +13,7 @@ Building & running
 ------------------
 
 This project uses CMake as build system.  
-Steps below were tested on Linux, but I think it should work also on Windows and MacOS.
+Steps below were tested on Linux.
 
 ### Building
 
