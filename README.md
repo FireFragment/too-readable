@@ -6,8 +6,7 @@ TooReadable
 
 **The programming language readable by non-developers!**
 
-> **Note:** This project is in early development.  
->  It means, that it runs programs, but lacks some key features programming language should have and isn't turing complete yet.
+> **Note:** This project runs programs, but lacks some key features programming language should have.
 
 Building & running
 ------------------
