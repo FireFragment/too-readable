@@ -44,6 +44,13 @@ namespace BuiltinFuncs
     const std::vector<BuiltinFunction*> list = {
         new BuiltinFunction("say something to user",    &Echo,      {"The message to say"}),
         new BuiltinFunction("let user write something", &GetInput),
+        new BuiltinFunction("ask user for information", BUILTIN_FUNC_BODY {
+            std::cout << (std::string)args[0] << ": ";
+
+            std::string response;
+            std::getline(std::cin, response);
+            return response;
+        }, {"The information to ask for"}),
 
         new BuiltinFunction("join two texts", BUILTIN_FUNC_BODY {
             return (std::string)args[0] + (std::string)args[1];

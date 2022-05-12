@@ -1,4 +1,21 @@
 #include "unparsed.h"
+#include <iostream>
+
+TooReadable::ParseStates::Unparsed::Unparsed(std::string _TheCode) {
+    TheCode = _TheCode;
+
+    std::string sub = " > NOTE:";
+
+    std::vector<size_t> positions; // holds all the positions that sub occurs within str
+
+    size_t pos = TheCode.find(sub, 0);
+    while(pos != std::string::npos)
+    {
+        TheCode.erase(pos, TheCode.find('\n', pos) - pos + 1);
+        pos = TheCode.find(sub,pos+1);
+    }
+}
+
 
 std::string TooReadable::ParseStates::Unparsed::ContinueWith(const std::string continueWith, const bool doThrow) {
     // This string should be equal to continueWith.

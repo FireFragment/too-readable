@@ -17,7 +17,12 @@ class Unparsed
 {
 public:
     std::string TheCode;
-    Unparsed(std::string TheCode):TheCode(TheCode) {};
+    /**
+     * @brief Create Unparsed from std::string and remove comments
+     *
+     * @param TheCode p_TheCode:...
+     */
+    Unparsed(std::string TheCode);
 
     // TODO: Write better docs
     /**
