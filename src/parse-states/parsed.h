@@ -75,6 +75,13 @@ public:
          */
         Step* conditionalCommand = NULL;
 
+
+        /**
+         * @see Divided::Step
+         *
+         */
+        Step* elseCommand = NULL;
+
         /**
          * \brief Execute the step
          *
@@ -94,6 +101,8 @@ public:
         Step(const Step& original): toCall(original.toCall), parentFunc(original.parentFunc), args(original.args), gotoDestination(original.gotoDestination) {
             if (original.conditionalCommand != NULL)
                 conditionalCommand = new Step(*original.conditionalCommand);
+            if (original.elseCommand != NULL)
+                elseCommand = new Step(*original.elseCommand);
         }
 
         inline bool isCondition() const {

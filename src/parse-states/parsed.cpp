@@ -73,6 +73,8 @@ const TooReadable::Value TooReadable::ParseStates::Parsed::Step::run(const std::
     if (isCondition()) {
         if (bool(toCall->run(evaluatedArgs)))
             return conditionalCommand->run(argVals, returns, gotoStep);
+        else if (elseCommand != NULL) // It has else branch
+            return elseCommand->run(argVals, returns, gotoStep);
         else
             return Value();
     }
@@ -110,10 +112,13 @@ TooReadable::ParseStates::Parsed::Step::Step(const Divided::Step original, const
     // ----- The parent function -----
     parentFunc = program->GetFuncNamed(original.parentFunc);
 
-    // ----- Conditional fuunction -----
+    // ----- Conditional function -----
 
-    if (original.conditionalCommand != NULL)
+    if (original.conditionalCommand != NULL) {
         conditionalCommand = new Parsed::Step(*original.conditionalCommand, program);
+        if (original.elseCommand != NULL)
+            elseCommand = new Parsed::Step(*original.elseCommand, program);
+    }
     
     // ----- Out of line arguments -----
     args.reserve(toCall->outOfLineArgs.size());

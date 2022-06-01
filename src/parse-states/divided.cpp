@@ -97,6 +97,9 @@ TooReadable::ParseStates::Divided::Step TooReadable::ParseStates::Divided::Step:
     if (isCond) {
         code->ContinueWith("    If so, ");
         step.conditionalCommand = new Step(fromCode(code, _parentFunc, false));
+
+        if (code->ContinueWith("    If not, ", false) == "") // The if statement has else
+            step.elseCommand = new Step(fromCode(code, _parentFunc, false));
     }
 
     return step;

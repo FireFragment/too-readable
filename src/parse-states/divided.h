@@ -93,10 +93,13 @@ public:
          * @brief If this step is condition, this is the command ran, if the condition fullfiled
          *
          * If it's `NULL`, this step is not condition, @see ::isCondition.
-         *
-         * FIXME: Deeply copy
          */
         Step* conditionalCommand = NULL;
+
+        /**
+         * @brief If this step is condition, this is the command ran, if the condition isn't fullfiled
+         */
+        Step* elseCommand = NULL;
 
         /**
          * @brief Check, whether this step is condition
@@ -113,6 +116,9 @@ public:
             funcName = original.funcName;
             if (original.conditionalCommand != NULL)
                 conditionalCommand = new Step(*original.conditionalCommand);
+
+            if (original.elseCommand != NULL)
+                elseCommand = new Step(*original.elseCommand);
         }
 
         ~Step() {
